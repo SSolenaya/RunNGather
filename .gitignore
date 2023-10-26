@@ -1,0 +1,88 @@
+# UnityGenerated #
+##################
+
+**/[Tt]emp/
+!**/Assets/**/[Tt]emp/
+**/[Ll]ibrary/
+**/[Oo]bj/
+**/[Bb]uild/
+**/Builds/
+#**/!Library/ProjectSettings.asset
+
+ 
+# VS MD Generated #
+###################
+*.svd
+*.userprefs
+*.tmproj
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+ 
+# OS Generated #
+################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.Trashes.*
+ehthumbs.db
+ehthumbs.db.*
+Thumbs.db
+Thumbs.db.*
+
+# Compiled source #
+###################
+*.com
+*.class
+*.o
+*.so
+ 
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+ 
+# Unity3D Generated File On Crash Reports
+sysinfo.txt
+
+[Ll]ogs/
+.vsconfig
+*.blob
+
+# Idea cache directory
+.idea/
+!FsmParser/*.csproj
+!FsmParser/*.sln
+UserSettings/Layouts/default-2021.dwlt
+ExploreImpact.sln.DotSettings.user
+Impact.sln.DotSettings.user
+Assets/PlayMaker/Editor/Resources/EditorStartupPrefs.asset
+UserSettings/Search.settings
+UserSettings/AndroidLogcatSettings.asset
+ProjectSettings/GvhProjectSettings.xml
+
+<<<<<<< HEAD
+Assets/UI pack/
+=======
+.vs/
+Assets/UI pack/Prefabs/
+Assets/UI pack/Icons/Bolt colored.png
+Assets/UI pack/Fonts/Roboto-Regular.ttf.meta
+Assets/UI pack/Fonts/
+Assets/UI pack/Icons/
+Assets/UI pack/Scripts/
+Assets/UI pack/Documentation.txt
+Assets/UI pack/Documentation.txt.meta
+>>>>>>> MathCheatMode

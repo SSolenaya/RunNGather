@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94adc6dc5057fb4a81493a0a5b06f70, type: 3}
+  m_Name: PrefabHolder
+  m_EditorClassIdentifier: 
+  roadBlockPrefab: {fileID: 1418617719589325799, guid: c20075a00e97adf4cbd11e2e72c9f276, type: 3}
+  playerPrefab: {fileID: 2222915898794353521, guid: 4180c29a242e1d54183746011ab4de65, type: 3}
+  plankPrefab: {fileID: 2632873513385221019, guid: 2918417d093d82945bb5585381ef5038, type: 3}
+  bonusGatePrefab: {fileID: 815020604077429445, guid: 2dc1292cab8168346950934998186aee, type: 3}
+  bonusTextPrefab: {fileID: 6241734671700822251, guid: 77a3402abf575b241ae2964ebca12028, type: 3}
+  finishLinePrefab: {fileID: 8848197742120926078, guid: 1730eacaa79a2a54e8721cea78df6f33, type: 3}
+  gameFieldHelperPrefab: {fileID: 1277135878113561998, guid: ccb146e411aac7540a13b5bede243c65, type: 3}
+  uiCanvasRootPrefab: {fileID: 4381833534004837030, guid: 3e14c0e443e5c9e479f6f5336a97c6c9, type: 3}
+  modalWindowList:
+  - {fileID: 6579652463578760788, guid: 6c13b12e32a0d79458082b503578c7f3, type: 3}
+  - {fileID: 1814331447499890944, guid: 7efb915ecaae1ab4bbc8c00ea89f477a, type: 3}
+  mainMenuWinPrefab: {fileID: 729317305402145862, guid: fc6786e041de01c419c308f459b54149, type: 3}

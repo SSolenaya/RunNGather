@@ -1,0 +1,187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec5644dceb37ed4f837932da70b77e6, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  roadStartDistance: 8
+  playerSpeed: 5
+  minBlockLenght: 25
+  maxBlockLenght: 50
+  roadEndDistance: 15
+  startingBlockNumber: 10
+  planksPoints: 1
+  plankChance: 75
+  bonusGatesList:
+  - leftGateArgs:
+      opType: 2
+      modifier: 25
+    rightGateArgs:
+      opType: 1
+      modifier: 10
+  - leftGateArgs:
+      opType: 0
+      modifier: 35
+    rightGateArgs:
+      opType: 3
+      modifier: 2
+  - leftGateArgs:
+      opType: 1
+      modifier: 1
+    rightGateArgs:
+      opType: 3
+      modifier: 3
+  - leftGateArgs:
+      opType: 2
+      modifier: 5
+    rightGateArgs:
+      opType: 0
+      modifier: 5
+  - leftGateArgs:
+      opType: 1
+      modifier: 100
+    rightGateArgs:
+      opType: 2
+      modifier: 2
+  - leftGateArgs:
+      opType: 3
+      modifier: 10
+    rightGateArgs:
+      opType: 0
+      modifier: 15
+  - leftGateArgs:
+      opType: 1
+      modifier: 60
+    rightGateArgs:
+      opType: 1
+      modifier: 1
+  - leftGateArgs:
+      opType: 2
+      modifier: 2
+    rightGateArgs:
+      opType: 3
+      modifier: 8
+  - leftGateArgs:
+      opType: 0
+      modifier: 100
+    rightGateArgs:
+      opType: 0
+      modifier: 10
+  - leftGateArgs:
+      opType: 3
+      modifier: 8
+    rightGateArgs:
+      opType: 3
+      modifier: 2
+  levelTemplatesList:
+  - blocksList:
+    - length: 15
+      gateArgs:
+        leftGateArgs:
+          opType: 0
+          modifier: 50
+        rightGateArgs:
+          opType: 2
+          modifier: 10
+      mandatoryPlanksNumber: 9
+      nextAbyssLength: 8
+    - length: 20
+      gateArgs:
+        leftGateArgs:
+          opType: 2
+          modifier: 5
+        rightGateArgs:
+          opType: 0
+          modifier: 80
+      mandatoryPlanksNumber: 16
+      nextAbyssLength: 9
+    - length: 5
+      gateArgs:
+        leftGateArgs:
+          opType: 1
+          modifier: 8
+        rightGateArgs:
+          opType: 3
+          modifier: 4
+      mandatoryPlanksNumber: 4
+      nextAbyssLength: 10
+  - blocksList:
+    - length: 12
+      gateArgs:
+        leftGateArgs:
+          opType: 0
+          modifier: 8
+        rightGateArgs:
+          opType: 1
+          modifier: 20
+      mandatoryPlanksNumber: 7
+      nextAbyssLength: 6
+    - length: 8
+      gateArgs:
+        leftGateArgs:
+          opType: 2
+          modifier: 2
+        rightGateArgs:
+          opType: 3
+          modifier: 2
+      mandatoryPlanksNumber: 5
+      nextAbyssLength: 6
+    - length: 25
+      gateArgs:
+        leftGateArgs:
+          opType: 0
+          modifier: 60
+        rightGateArgs:
+          opType: 0
+          modifier: 1
+      mandatoryPlanksNumber: 10
+      nextAbyssLength: 15
+    - length: 10
+      gateArgs:
+        leftGateArgs:
+          opType: 3
+          modifier: 2
+        rightGateArgs:
+          opType: 0
+          modifier: 18
+      mandatoryPlanksNumber: 3
+      nextAbyssLength: 4
+    - length: 3
+      gateArgs:
+        leftGateArgs:
+          opType: 0
+          modifier: 1
+        rightGateArgs:
+          opType: 1
+          modifier: 1
+      mandatoryPlanksNumber: 1
+      nextAbyssLength: 0
+  - blocksList:
+    - length: 40
+      gateArgs:
+        leftGateArgs:
+          opType: 0
+          modifier: 100
+        rightGateArgs:
+          opType: 2
+          modifier: 10
+      mandatoryPlanksNumber: 30
+      nextAbyssLength: 10
+    - length: 4
+      gateArgs:
+        leftGateArgs:
+          opType: 0
+          modifier: 2
+        rightGateArgs:
+          opType: 0
+          modifier: 6
+      mandatoryPlanksNumber: 2
+      nextAbyssLength: 1
