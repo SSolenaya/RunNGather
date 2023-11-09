@@ -7,6 +7,8 @@ public class ControllersInstaller : MonoInstaller
     {
         Container.Bind<BonusGatesController>().AsSingle().NonLazy();
 
+        Container.Bind<CharacterModelsController>().AsSingle().NonLazy();
+
         Container.Bind<PlayerController>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
 
         Container.Bind<RoadController>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();

@@ -78,7 +78,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     {
         if (planksNeeded > _blockData.length)
         {
-            Debug.LogError(gameObject.name + ": Too many planks in template");
+            Debug.LogError(gameObject.name + ": Too many planks are demanded in template");
         }
         List<int> sourceIndexes = new List<int>(_blockData.length);
 

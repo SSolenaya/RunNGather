@@ -17,8 +17,12 @@ public interface PlankChangerActor
 
 public class PlayerEntity : MonoBehaviour, PlankChangerActor
 {
+    [Inject] private PrefabHolder _prefabHolder;
+    [Inject] private Settings _settings;
+    [Inject] private CharacterModelsController _characterModelsController;
+    [SerializeField] private Transform _parentForView;
     public ReactiveProperty<float> xLocalPos = new ReactiveProperty<float>();
-    private int startingPlankNumber = 1000;            //  for testing (value for build version = 0)
+    private int startingPlankNumber = 0;            //  for testing (value for build version = 0)
     private int _plankNum;
     public int PlankNumber
     {
@@ -33,11 +37,10 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     [SerializeField] private TMP_Text _planksNumText;
     [SerializeField] private SwipeMovingController _swipeController;
     [SerializeField] private PlayerCollisionController _collisionController;
-    private Settings _settings;
-    private PrefabHolder _prefabHolder;
     private int _speed;
     private PlayerState _playerGameState = PlayerState.none;
     private PlayerControlState _playerControlState = PlayerControlState.controlled;
+    private CharacterAnimator _characterAnimator;
     private Vector3 _currentDirectionV3;
     private RoadBlock _currentRoadBlock;
     private Vector3 _currentPlankPlace = Vector3.zero;
@@ -46,14 +49,13 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     private Action _onFallingAct;
     
 
-    public void Setup(Settings settings, PrefabHolder prefabHolder,PoolManager poolManager)
+    public void Setup(PoolManager poolManager)
     {
-        _settings = settings;
-        _prefabHolder = prefabHolder;
         _plankPoolManager = poolManager;
-        _speed = _settings.playerSpeed;
         _currentDirectionV3 = Vector3.left;
         //Observable.EveryUpdate().Subscribe(_ => SetNewLocalPos()).AddTo(this);
+        _speed = _settings.playerSpeed;
+        SetView();
         _swipeController.Setup(this);
         _collisionController.Setup(this);
     }
@@ -74,12 +76,21 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         SetNewLocalPos();
     }
 
+    private void SetView()
+    {
+        _characterAnimator = _characterModelsController.GetModelByType(CharacterType.cowboy);           //  TODO: Get model by logic
+        _characterAnimator.transform.SetParent(_parentForView);
+        _characterAnimator.transform.localScale = 20 * Vector3.one;
+        _characterAnimator.transform.localPosition = Vector3.zero;
+        _characterAnimator.transform.localEulerAngles = new Vector3(0f, -90f, 0f);
+    }
+
     private void Move()
     {
        transform.Translate(_currentDirectionV3 * _speed * Time.deltaTime);
-        if (transform.position.y < -5f)
+        if (transform.position.y < -45f)
         {
-            SetPlayerState(PlayerState.idle);
+            SetPlayerState(PlayerState.none);
             _onFallingAct?.Invoke();
         }
     }
@@ -108,7 +119,6 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
             
         } else
         {
-            Debug.Log(hit.collider.name);
             if (_currentRoadBlock != null)
             {
                 return;
@@ -132,6 +142,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
             return;
         }
         _playerGameState = newState;
+        _characterAnimator.SetAnimationState(_playerGameState);
         switch (newState)
         {
             case PlayerState.idle:
@@ -158,6 +169,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
                 }
                 break;
             case PlayerState.none:
+            default:
                 Debug.LogError("Player state isn't defined");
                 break;
         }
@@ -169,7 +181,6 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         {
             return;
         }
-        Debug.Log("New control state: " + newState);
         _playerControlState = newState;
         switch (newState)
         {

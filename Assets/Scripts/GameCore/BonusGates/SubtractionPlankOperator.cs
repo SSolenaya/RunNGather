@@ -7,7 +7,6 @@ public class SubtractionPlankOperator : GateOperator
 {
     public override void ChangePlankNumber(PlankChangerActor plankChangerActor)
     {
-        Debug.Log("Subtraction op class");
         if (!isInteractable) return;
         base.ChangePlankNumber(plankChangerActor);
         plankChangerActor.PlankNumber -= _modifier;

@@ -9,7 +9,6 @@ public class DivisionPlankOperator : GateOperator
 {
     public override void ChangePlankNumber(PlankChangerActor plankChangerActor)
     {
-        Debug.Log("Division op class");
         if (!isInteractable) return;
         base.ChangePlankNumber(plankChangerActor);
         plankChangerActor.PlankNumber /= _modifier;

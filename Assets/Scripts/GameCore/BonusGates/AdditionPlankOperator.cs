@@ -8,7 +8,6 @@ public class AdditionPlankOperator : GateOperator
 {
     public override void ChangePlankNumber(PlankChangerActor plankChangerActor)
     {
-        Debug.Log("Addition op class");
         if (!isInteractable) return;
         base.ChangePlankNumber(plankChangerActor);
         plankChangerActor.PlankNumber += _modifier;

@@ -30,8 +30,10 @@ public class PlayerController : MonoBehaviour
     {
         if (_playerEntity == null)
         {
-            _playerEntity = Instantiate(_prefabHolder.playerPrefab, _gameFieldHelper.gameObjParent);
-            _playerEntity.Setup(_settings, _prefabHolder, pM);
+            _playerEntity = _diContainer.InstantiatePrefab(_prefabHolder.playerPrefab).GetComponent<PlayerEntity>();
+            _playerEntity.transform.SetParent(_gameFieldHelper.gameObjParent);
+            _playerEntity.transform.localPosition = Vector3.zero;
+            _playerEntity.Setup(pM);
             _playerEntity.SubscribeForFalling(() => _mainLogic.SetGameState(GameState.gameOver));
         }
         _playerEntity.Restart();

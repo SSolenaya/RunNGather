@@ -15,4 +15,18 @@ public class PrefabHolder : ScriptableObject
     public UICanvasRoot uiCanvasRootPrefab;
     public List<BaseModalWindow> modalWindowList;
     public MainMenuWin mainMenuWinPrefab;
+    public List <CharacterViewData> modelsList;
+
+    public CharacterAnimator GetModelPrefabByType(CharacterType type)
+    {
+        foreach (var item in modelsList)
+        {
+            if(item.iD == type)
+            {
+                return item.model;
+            }
+        }
+        Debug.LogError("PrefabHolder does not have model of this type: " + type.ToString());
+        return null;
+    }
 }

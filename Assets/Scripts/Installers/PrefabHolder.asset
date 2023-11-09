@@ -24,3 +24,6 @@ MonoBehaviour:
   - {fileID: 6579652463578760788, guid: 6c13b12e32a0d79458082b503578c7f3, type: 3}
   - {fileID: 1814331447499890944, guid: 7efb915ecaae1ab4bbc8c00ea89f477a, type: 3}
   mainMenuWinPrefab: {fileID: 729317305402145862, guid: fc6786e041de01c419c308f459b54149, type: 3}
+  modelsList:
+  - iD: 0
+    model: {fileID: 7786420840557707332, guid: ca6fd11b779584c4480e0f218ff2cc1d, type: 3}

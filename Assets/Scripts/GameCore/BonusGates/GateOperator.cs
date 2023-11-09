@@ -31,7 +31,6 @@ public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
 
     public virtual void ChangePlankNumber(PlankChangerActor plankChangerActor) 
     {
-        Debug.Log("Gate op abstract class");
         _parentGate.SetInteracted();
     }
 
