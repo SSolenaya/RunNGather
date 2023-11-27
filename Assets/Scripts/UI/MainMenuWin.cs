@@ -36,6 +36,6 @@ public class MainMenuWin : MonoBehaviour
             gameObject.SetActive(false);
         });
 
-        _soundToggle.OnValueChangedAsObservable().Subscribe(_ => Debug.Log("Sound new state: " + _.ToString())); //  TODO: audioController
+        _soundToggle.OnValueChangedAsObservable().Subscribe(_ => _mainLogic.SubscribeForSoundMute(_));
     }
 }

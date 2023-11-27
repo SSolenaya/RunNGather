@@ -118,7 +118,7 @@ MonoBehaviour:
       gateArgs:
         leftGateArgs:
           opType: 0
-          modifier: 8
+          modifier: 15
         rightGateArgs:
           opType: 1
           modifier: 20
@@ -130,8 +130,8 @@ MonoBehaviour:
           opType: 2
           modifier: 2
         rightGateArgs:
-          opType: 3
-          modifier: 2
+          opType: 0
+          modifier: 16
       mandatoryPlanksNumber: 5
       nextAbyssLength: 6
     - length: 25

@@ -27,3 +27,4 @@ MonoBehaviour:
   modelsList:
   - iD: 0
     model: {fileID: 7786420840557707332, guid: ca6fd11b779584c4480e0f218ff2cc1d, type: 3}
+  _audioControllerPrefab: {fileID: 6808848280828764049, guid: e98f37724a4562b4aa6d3a97b763c481, type: 3}

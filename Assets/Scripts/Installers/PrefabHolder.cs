@@ -16,6 +16,7 @@ public class PrefabHolder : ScriptableObject
     public List<BaseModalWindow> modalWindowList;
     public MainMenuWin mainMenuWinPrefab;
     public List <CharacterViewData> modelsList;
+    public AudioController _audioControllerPrefab;
 
     public CharacterAnimator GetModelPrefabByType(CharacterType type)
     {

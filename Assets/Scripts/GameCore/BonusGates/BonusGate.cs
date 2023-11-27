@@ -10,6 +10,7 @@ public class BonusGate : MonoBehaviour, IPoolItem
     [Inject] private GameFieldHelper _gameFieldHelper;
     [Inject] private PrefabHolder _prefabHolder;
     [Inject] private Settings _settings;
+    [Inject] private AudioController _audioController;
     [SerializeField] private Transform _leftTextPos;
     [SerializeField] private Transform _rightTextPos;
     [SerializeField] private GameObject _leftGate;
@@ -108,6 +109,11 @@ public class BonusGate : MonoBehaviour, IPoolItem
     {
         _leftBonus.SetUniteractable();
         _rightBonus.SetUniteractable();
+    }
+
+    public void PlaySoundOnCroosingGate()
+    {
+        _audioController.PlayBonusPickingSound();
     }
 }
 

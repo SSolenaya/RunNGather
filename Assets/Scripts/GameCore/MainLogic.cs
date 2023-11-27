@@ -29,6 +29,7 @@ public class MainLogic
     [Inject] private PlayerController _playerController;
     [Inject] private ModalWindowsController _modalWindowsController;
     [Inject] private MenuController _mainMenuController;
+    [Inject] private AudioController _audioController;
     private GameState _gameState;
 
 
@@ -51,6 +52,7 @@ public class MainLogic
             case GameState.wait:
                 break;
             case GameState.win:
+                _audioController.PlayWinningSound();
                 Debug.Log("Level finished !!!");
                 LevelNumber++;
                 _playerController.SetPlayerIdle();
@@ -61,6 +63,7 @@ public class MainLogic
                 _modalWindowsController.ShowModalWin<FinishLevelModalWin>(finLvlArgs);
                 break;
             case GameState.gameOver:
+                _audioController.PlayFallingSound();
                 Debug.Log("Game over !!!");
                 GameOverWinArgs goArgs = new GameOverWinArgs();
                 goArgs.restartAct += Restart;
@@ -69,6 +72,7 @@ public class MainLogic
                 _modalWindowsController.ShowModalWin<GameOverModalWin>(goArgs);
                 break;
             case GameState.none:
+            default:
                 Debug.LogError("Game state isn't defined");
                 break;
         }
@@ -97,6 +101,11 @@ public class MainLogic
     public void StartRunning()
     {
         _playerController.MakePlayerRun();
+    }
+
+    public void SubscribeForSoundMute(bool newSoundState)
+    {
+        _audioController.SwitchSound(newSoundState);
     }
 
 }

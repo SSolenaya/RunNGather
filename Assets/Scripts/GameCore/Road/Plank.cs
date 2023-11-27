@@ -10,6 +10,7 @@ public class Plank : MonoBehaviour, IPoolItem, IPlankNumberChanger
 {
     public bool IsInPool { get; set; }
     [Inject] private Settings settings;
+    [Inject] private AudioController _audioController;
     private PoolManager _poolManager;
 
     public GameObject GetGameObject()
@@ -38,6 +39,7 @@ public class Plank : MonoBehaviour, IPoolItem, IPlankNumberChanger
 
     public void ChangePlankNumber(PlankChangerActor plankChangerActor)
     {
+        _audioController.PlayGatheringSound();
         plankChangerActor.PlankNumber += settings.planksPoints;
         _poolManager.ReleaseItem(this);
     }

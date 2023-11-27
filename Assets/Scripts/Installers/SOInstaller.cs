@@ -32,5 +32,10 @@ public class SOInstaller : ScriptableObjectInstaller
                  .AsSingle()
                  .NonLazy();
 
+        Container.Bind<AudioController>()
+                .FromComponentInNewPrefab(_prefabHolder._audioControllerPrefab)
+                .AsSingle()
+                .NonLazy();
+
     }
 }

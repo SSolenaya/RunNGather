@@ -173,7 +173,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
         {
             _plankPool.ReleaseItem(plank);
         }
-
+        _planksList.Clear();
         _roadController.bonusGatesController.GetBonusGatePoolManager().ReleaseItem(_bonusGate);
     }
 }

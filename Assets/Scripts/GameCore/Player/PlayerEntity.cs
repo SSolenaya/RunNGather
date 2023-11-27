@@ -20,6 +20,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     [Inject] private PrefabHolder _prefabHolder;
     [Inject] private Settings _settings;
     [Inject] private CharacterModelsController _characterModelsController;
+    [Inject] private AudioController _audioController;
     [SerializeField] private Transform _parentForView;
     public ReactiveProperty<float> xLocalPos = new ReactiveProperty<float>();
     private int startingPlankNumber = 0;            //  for testing (value for build version = 0)
@@ -169,6 +170,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
                 }
                 break;
             case PlayerState.none:
+                break;
             default:
                 Debug.LogError("Player state isn't defined");
                 break;
@@ -198,6 +200,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         _currentPlankPlace += Vector3.left * 0.45f;
         plank.transform.position = _currentPlankPlace;
         plank.gameObject.SetActive(true);
+        _audioController.PlayBuildingSound();
         plank.gameObject.name = "Plank_" + _planksList.Count;
         xLocalPos.Subscribe(x => plank.CheckForHiding(x, _settings.roadStartDistance, () => _planksList.Remove(plank)));
         _planksList.Add(plank);
