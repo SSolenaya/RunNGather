@@ -109,7 +109,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
           plank.transform.SetParent(_planksParentTransform);
           plank.SetupPoolManager(_plankPool);
           float zCoord = UnityEngine.Random.Range(-1.35f, 1.35f);
-          plank.transform.position = transform.TransformPoint(new Vector3(-(0.5f + plankPlacesArray[i]), 2, zCoord));
+          plank.transform.position = transform.TransformPoint(new Vector3(-(0.5f + plankPlacesArray[i]), 1.5f, zCoord));
           plank.gameObject.name = "Plank_" + i + "_on_" + gameObject.name;
           plank.gameObject.SetActive(true);
           _planksList.Add(plank);

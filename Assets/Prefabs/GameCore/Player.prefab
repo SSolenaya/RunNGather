@@ -178,6 +178,9 @@ MonoBehaviour:
   _planksNumText: {fileID: 5846414647812288526}
   _swipeController: {fileID: 4163268764114285147}
   _collisionController: {fileID: 892186679876543605}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &4163268764114285147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9101568119785266931}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -478,7 +481,7 @@ CapsuleCollider:
   m_Radius: 0.53187937
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: -0.014632419, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8421961401753788203
 Rigidbody:
   m_ObjectHideFlags: 0

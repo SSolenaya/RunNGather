@@ -48,7 +48,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     private List<Plank> _planksList = new List<Plank>();
     private PoolManager _plankPoolManager;
     private Action _onFallingAct;
-    
+    [SerializeField] private LayerMask _layerMask;
 
     public void Setup(PoolManager poolManager)
     {
@@ -113,7 +113,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         Ray ray = new Ray(transform.position + Vector3.up*1f, Vector3.down);
         Debug.DrawRay(ray.origin, ray.direction * 5, Color.green);
         RaycastHit hit;
-        if (!Physics.Raycast(ray, out hit))
+        if (!Physics.Raycast(ray, out hit, 20, _layerMask))
         {
            SetPlayerState(PlayerState.build);
            SetControlState(PlayerControlState.uncontrolled);

@@ -53,6 +53,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6677611983605288548}
     m_Modifications:
+    - target: {fileID: -8782578384741453260, guid: e3a59f4d680826e4e84284f70c0a1a60, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d94828235761d724c8c2dca9c5053af2, type: 2}
     - target: {fileID: -8679921383154817045, guid: e3a59f4d680826e4e84284f70c0a1a60, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -97,6 +101,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1699310770162814302, guid: e3a59f4d680826e4e84284f70c0a1a60, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d94828235761d724c8c2dca9c5053af2, type: 2}
     - target: {fileID: 919132149155446097, guid: e3a59f4d680826e4e84284f70c0a1a60, type: 3}
       propertyPath: m_Name
       value: cowboy_withBody
