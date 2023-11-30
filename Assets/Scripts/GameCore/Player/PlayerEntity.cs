@@ -110,13 +110,13 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
 
     private void SendRay()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
+        Ray ray = new Ray(transform.position + Vector3.up*1f, Vector3.down);
         Debug.DrawRay(ray.origin, ray.direction * 5, Color.green);
         RaycastHit hit;
         if (!Physics.Raycast(ray, out hit))
         {
-            SetPlayerState(PlayerState.build);
-            SetControlState(PlayerControlState.uncontrolled);
+           SetPlayerState(PlayerState.build);
+           SetControlState(PlayerControlState.uncontrolled);
             
         } else
         {
@@ -159,7 +159,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
                 if (PlankNumber > 0)
                 {
                     if (_currentRoadBlock != null){
-                        _currentPlankPlace = new Vector3 (_currentRoadBlock.GetBlockEndXPos() + 0.25f, 0.5f, transform.position.z);
+                        _currentPlankPlace = new Vector3 (_currentRoadBlock.GetBlockEndXPos() + 0.25f, 0.95f, transform.position.z);
                     }
                     BuildPlank();
                     _currentRoadBlock = null;

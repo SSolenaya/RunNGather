@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [Inject] private MainLogic _mainLogic;
     [Inject] private DiContainer _diContainer;
     private PoolManager _plankPoolManager;
-    private PlayerEntity _playerEntity;
+    public PlayerEntity _playerEntity;
     private CompositeDisposable _disposables = new CompositeDisposable();
 
     public void Restart()
@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
         {
             _playerEntity = _diContainer.InstantiatePrefab(_prefabHolder.playerPrefab).GetComponent<PlayerEntity>();
             _playerEntity.transform.SetParent(_gameFieldHelper.gameObjParent);
-            _playerEntity.transform.localPosition = Vector3.zero;
             _playerEntity.Setup(pM);
             _playerEntity.SubscribeForFalling(() => _mainLogic.SetGameState(GameState.gameOver));
         }

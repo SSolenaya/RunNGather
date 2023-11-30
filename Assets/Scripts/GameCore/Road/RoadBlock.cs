@@ -11,7 +11,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class RoadBlock : MonoBehaviour, IPoolItem
 {
-    [SerializeField] private GameObject _roadBlockView;
+    [SerializeField] private RoadBlockViewBuilder _viewBuilder;
+    [SerializeField] private GameObject _blockBody;
     [SerializeField] private Transform _planksParentTransform;
     [Inject] private Settings _settings;
     [Inject] private PrefabHolder _prefabHolder;
@@ -108,7 +109,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
           plank.transform.SetParent(_planksParentTransform);
           plank.SetupPoolManager(_plankPool);
           float zCoord = UnityEngine.Random.Range(-1.35f, 1.35f);
-          plank.transform.position = transform.TransformPoint(new Vector3(-(0.5f + plankPlacesArray[i]), 1f, zCoord));
+          plank.transform.position = transform.TransformPoint(new Vector3(-(0.5f + plankPlacesArray[i]), 2, zCoord));
           plank.gameObject.name = "Plank_" + i + "_on_" + gameObject.name;
           plank.gameObject.SetActive(true);
           _planksList.Add(plank);
@@ -143,9 +144,10 @@ public class RoadBlock : MonoBehaviour, IPoolItem
 
     public void SetupView(float length)
     {
-        _roadBlockView.transform.localPosition = new Vector3(-length/2f, 0, 0);
-        _roadBlockView.transform.localScale = new Vector3(length, _roadBlockView.transform.localScale.y, _roadBlockView.transform.localScale.z);
-        _planksParentTransform.localPosition = new Vector3(-length / 2f, 0, 0);
+        _viewBuilder.BuildView(length);
+        _planksParentTransform.localPosition = new Vector3(-length / 2f, 0.5f, 0);
+        _blockBody.transform.localPosition = new Vector3(-length / 2f, 0, 0);
+        _blockBody.transform.localScale = new Vector3(length + 1, 2, 6.5f);
     }
 
     public  void CheckForHiding(float currentPlayerPosX)
