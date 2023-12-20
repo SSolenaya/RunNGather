@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 7e628de78ad94b941ad0642beeef02ed
+guid: be29a710ea592bb4a99205d2251bd00a
 ModelImporter:
-  serializedVersion: 21300
-  internalIDToNameTable:
-  - first:
-      74: 154177089626261665
-    second: Model_landing
+  serializedVersion: 21202
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -102,7 +99,6 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
-  remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

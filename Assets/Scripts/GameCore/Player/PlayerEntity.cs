@@ -81,7 +81,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     {
         _characterAnimator = _characterModelsController.GetModelByType(CharacterType.cowboy);           //  TODO: Get model by logic
         _characterAnimator.transform.SetParent(_parentForView);
-        _characterAnimator.transform.localScale = 20 * Vector3.one;
+        _characterAnimator.transform.localScale = Vector3.one;
         _characterAnimator.transform.localPosition = Vector3.zero;
         _characterAnimator.transform.localEulerAngles = new Vector3(0f, -90f, 0f);
     }

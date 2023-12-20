@@ -21,3 +21,22 @@ public class GameStarter : MonoInstaller
         _sceneContext.PostInstall -= OnPostInstall;
     }
 }
+
+public class Tt
+{
+    public void Set()
+    {
+        var d = new Tt();
+        d.Set();
+    }
+
+
+}
+
+public class RR
+{
+    public static void Set1(Tt tt, int d)
+    {
+
+    }
+}
