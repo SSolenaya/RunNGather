@@ -53,4 +53,8 @@ public class PlayerController : MonoBehaviour
         _playerEntity.SetPlayerState(PlayerState.run);
     }
 
+    public float GetPlayerDistance()
+    {
+        return -1*_playerEntity.xLocalPos.Value;
+    }
 }

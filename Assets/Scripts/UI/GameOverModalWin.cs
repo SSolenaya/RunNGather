@@ -10,6 +10,8 @@ public class GameOverModalWin : BaseModalWindow
     private GameOverWinArgs _args;
     [SerializeField] private Button _restartBtn;
     [SerializeField] private Button _toMenuBtn;
+    [SerializeField] private TMP_Text _distanceValueTxt;
+    [SerializeField] private GameObject _distanceMsgObj;
 
     public override void Close()
     {
@@ -32,15 +34,21 @@ public class GameOverModalWin : BaseModalWindow
             _args.backToMenuAct?.Invoke();
             Close();
         });
+        if (_args.distance > 0)
+        {
+            _distanceValueTxt.text = _args.distance.ToString("0.0");
+            
+        }
+        _distanceMsgObj.SetActive(_args.distance > 0);
         gameObject.SetActive(true);
     }
 
-    //[SerializeField] private TMP_Text messageTxt;
 }
 
 public class GameOverWinArgs : BaseModalWinArgs
 {
     public Action restartAct;
     public Action backToMenuAct;
+    public float distance;
     // other args: message txt, bact to menu action, etc.
 }

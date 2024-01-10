@@ -30,6 +30,7 @@ public class MainLogic
     [Inject] private ModalWindowsController _modalWindowsController;
     [Inject] private MenuController _mainMenuController;
     [Inject] private AudioController _audioController;
+    [Inject] private UICanvasRoot _rootCanvas;
     private GameState _gameState;
 
 
@@ -38,6 +39,7 @@ public class MainLogic
         SetGameState(GameState.wait);
         _playerController.Restart();
         _roadController.Restart();
+        _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText); 
     }
 
     public void SetGameState(GameState newState)
@@ -69,6 +71,10 @@ public class MainLogic
                 goArgs.restartAct += Restart;
                 goArgs.restartAct += () => _playerController.MakePlayerRun();
                 goArgs.backToMenuAct += _mainMenuController.ShowMainMenu;
+                if (GameMode == GameMode.eternalRunning)
+                {
+                    goArgs.distance = _playerController.GetPlayerDistance();
+                }
                 _modalWindowsController.ShowModalWin<GameOverModalWin>(goArgs);
                 break;
             case GameState.none:

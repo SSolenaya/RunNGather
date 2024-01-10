@@ -69,12 +69,12 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
             case PlayerState.run:
                 SendRay();
                 Move();
+                SetNewLocalPos();
                 break;
             case PlayerState.fall:
                 Move();
                 break;
         }
-        SetNewLocalPos();
     }
 
     private void SetView()
