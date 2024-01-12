@@ -107,8 +107,8 @@ public class BonusGate : MonoBehaviour, IPoolItem
 
     public void SetInteracted()
     {
-        _leftBonus.SetUniteractable();
-        _rightBonus.SetUniteractable();
+        _leftBonus.SetUninteractable();
+        _rightBonus.SetUninteractable();
     }
 
     public void PlaySoundOnCroosingGate()

@@ -8,10 +8,10 @@ public class RoadBlockViewBuilder : MonoBehaviour
     [SerializeField] private GameObject _scalablePart;
     [SerializeField] private GameObject _endingPart;
 
-    public void BuildView(float length)
+    public void BuildView(int viewLength, int fullBlockLength)
     {
-        float scale = (length - 4)/2;
+        float scale = viewLength / 2;
         _scalablePart.transform.localScale = new Vector3(scale, 1, 1);
-        _endingPart.transform.localPosition = new Vector3(-(length - 2), 0, 0);
+        _endingPart.transform.localPosition = new Vector3(-(fullBlockLength - 2), 0, 0);
     }
 }

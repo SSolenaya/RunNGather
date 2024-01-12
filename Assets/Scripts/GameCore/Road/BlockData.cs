@@ -7,7 +7,7 @@ using UnityEngine;
 public class BlockData
 {
    public int length;
-   public BonusGateArgs gateArgs;
+   public List<BonusGateArgs> gateArgs;
    public int mandatoryPlanksNumber;
    public int nextAbyssLength;
 }

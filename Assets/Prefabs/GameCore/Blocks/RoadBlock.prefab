@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7416831746370284297}
   m_Layer: 0
-  m_Name: planksParent
+  m_Name: onBlockObjectsParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewBuilder: {fileID: 6737818760021188778}
   _blockBody: {fileID: 2096297681349856105}
-  _planksParentTransform: {fileID: 7416831746370284297}
+  _onBlockObjectsParentTransform: {fileID: 7416831746370284297}
 --- !u!1001 &6715172146690821048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188,6 +188,10 @@ PrefabInstance:
     - target: {fileID: 207376415372893144, guid: 11b820be1cc542f4782a604e499d6be6, type: 3}
       propertyPath: m_Name
       value: RoadBlockView
+      objectReference: {fileID: 0}
+    - target: {fileID: 207376415372893144, guid: 11b820be1cc542f4782a604e499d6be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4915459414848188373, guid: 11b820be1cc542f4782a604e499d6be6, type: 3}
       propertyPath: m_RootOrder
@@ -232,6 +236,10 @@ PrefabInstance:
     - target: {fileID: 4915459414848188373, guid: 11b820be1cc542f4782a604e499d6be6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7489693344474210454, guid: 11b820be1cc542f4782a604e499d6be6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11b820be1cc542f4782a604e499d6be6, type: 3}

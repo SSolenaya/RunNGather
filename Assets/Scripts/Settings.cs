@@ -12,6 +12,7 @@ public class Settings : ScriptableObject
     public int roadEndDistance = 15;                       //             player's distance from current block for building new blocks                                
     public int startingBlockNumber = 10;                   //             block's amount that is built on start
     public int planksPoints = 1;                   //             test temp bear - > remove or change planks to planks packs 
+    public int minDistanceBetweenGates = 8;
 
     [Range(1, 100)]
     public int plankChance;

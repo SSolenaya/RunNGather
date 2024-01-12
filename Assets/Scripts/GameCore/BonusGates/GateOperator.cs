@@ -37,7 +37,7 @@ public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
         _parentGate.SetInteracted();
     }
 
-    public void SetUniteractable()
+    public void SetUninteractable()
     {
         isInteractable = false;
     }
