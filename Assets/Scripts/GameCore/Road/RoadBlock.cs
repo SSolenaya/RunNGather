@@ -199,7 +199,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
 
     public void SetupView(int fullLength, int viewLength)
     {
-        _viewBuilder.BuildView(_blockData.length);
+        _viewBuilder.BuildView(viewLength);
         _blockBody.transform.localPosition = new Vector3(-fullLength / 2f, 0, 0);
         _blockBody.transform.localScale = new Vector3(fullLength + 0.8f, 2, 6.5f);
     }
