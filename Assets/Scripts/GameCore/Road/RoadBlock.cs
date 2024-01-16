@@ -34,8 +34,8 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     {
         _roadController = roadController;
         _blockData = blockData;
-        _blockData.length = blockData.length <= 6? 6: blockData.length;
-        _blockData.length = (blockData.length % 2) > 0 ? blockData.length + 1 : blockData.length;       //  because of minimal size ofthe scalable block's part model, that equals 2 unitit units
+        blockData.length = blockData.length <= 6? 6: blockData.length;
+        _blockData.length = (blockData.length % 2) > 0 ? blockData.length + 1 : blockData.length;       //  due to minimal size of the scalable block's part model, that equals 2 unity units
         _plankPool = _roadController.GetPlankPoolManager();
         _isFinalBlock = isFinalBlock;
         transform.localPosition = position;
@@ -71,7 +71,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     {
         List<int> resultList = new List<int>();
         
-        for (int i = 0; i < _blockData.length; i++)
+        for (int i = 0; i < (_blockData.length-1); i++)
         {
             float r = UnityEngine.Random.Range(0, 100);
             if (r < _settings.plankChance)
@@ -85,14 +85,14 @@ public class RoadBlock : MonoBehaviour, IPoolItem
 
     public int[] GetSpecificCells(int planksNeeded) 
     {
-        if (planksNeeded > _blockData.length)
+        if (planksNeeded >= _blockData.length)
         {
-            planksNeeded = _blockData.length;
+            planksNeeded = _blockData.length - 1;
             Debug.LogError(gameObject.name + ": Too many planks are demanded in template");
         }
         List<int> sourceIndexes = new List<int>(_blockData.length);
 
-        for (int i = 0; i < _blockData.length; i++)
+        for (int i = 0; i < (_blockData.length - 1); i++)
         {
             sourceIndexes.Add(i);
         }
@@ -113,7 +113,6 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     {
         for (int i = 0; i < plankPlacesArray.Length; i++)
         {
-          //if ((0.5f + plankPlacesArray[i]) == _blockData.length/2) continue;      // exeption of the block's middle - place for gate
           Plank plank = _plankPool.GetPoolItem<Plank>();
           plank.transform.SetParent(_onBlockObjectsParentTransform);
           plank.SetupPoolManager(_plankPool);
