@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using UnityEditor.Animations;
 using UnityEditor.EditorTools;
@@ -18,6 +19,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     [Inject] private Settings _settings;
     [Inject] private PrefabHolder _prefabHolder;
     [Inject] private MainLogic _mainLogic;
+    [Inject] private GameFieldHelper _gameFieldHelper;
     private RoadController _roadController;
     private float _thisBlockEndPosX;
     private BlockData _blockData;
@@ -32,18 +34,20 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     {
         _roadController = roadController;
         _blockData = blockData;
+        _blockData.length = blockData.length <= 6? 6: blockData.length;
+        _blockData.length = (blockData.length % 2) > 0 ? blockData.length + 1 : blockData.length;       //  because of minimal size ofthe scalable block's part model, that equals 2 unitit units
         _plankPool = _roadController.GetPlankPoolManager();
         _isFinalBlock = isFinalBlock;
         transform.localPosition = position;
-        int blocksWorkingArea = _blockData.length - 4;
-        SetupView(blocksWorkingArea, _blockData.length);
+        int blockScalableArea = _blockData.length - 4;  // 2*2=4 - size of starting and ending block's parts together - it is prohibited to build gate there
+        SetupView(_blockData.length, blockScalableArea);
         _thisBlockEndPosX = transform.localPosition.x - _blockData.length;
-        SetPlanks(blockData.mandatoryPlanksNumber);
+        SetPlanks(_blockData.mandatoryPlanksNumber);
         if (isFinalBlock)
         {
             FinishLineInstantiation();
         }
-        GateInstantiation(blockData, blocksWorkingArea);
+        GateInstantiation(_blockData, blockScalableArea);
         gameObject.SetActive(true);
     }
 
@@ -83,6 +87,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     {
         if (planksNeeded > _blockData.length)
         {
+            planksNeeded = _blockData.length;
             Debug.LogError(gameObject.name + ": Too many planks are demanded in template");
         }
         List<int> sourceIndexes = new List<int>(_blockData.length);
@@ -122,32 +127,33 @@ public class RoadBlock : MonoBehaviour, IPoolItem
 
     public void GateInstantiation(BlockData blockData, int workingArea)
     {
-        if (_isFinalBlock)          
+        if (_isFinalBlock)         // final block has the finish line, so it is necessary to keep its end free from any gates 
         {
             workingArea =-_settings.minDistanceBetweenGates;
         }
         int maxGatesQuantity = (workingArea / _settings.minDistanceBetweenGates) + 1;
-        if (blockData.gateArgs != null && blockData.gateArgs.Count != 0)
+        if (blockData.gateArgs != null)        // when Settings has gate args in the current template of a block
         {
-            int templatedNumber = blockData.gateArgs.Count - 1;
+            if (blockData.gateArgs.Count == 0) return;        // when this list is deliberately empty
+            int templatedNumber = blockData.gateArgs.Count;
             int gatesNumber;
             if (templatedNumber > maxGatesQuantity)
             {
                 gatesNumber = maxGatesQuantity;
-                Debug.LogError("The number of gates in the template is exceeding the maximumr: " + gameObject.name);
+                Debug.LogError("The number of gates in the template is exceeding the maximum: " + gameObject.name);
             }
             else
             {
                 gatesNumber = templatedNumber;
             }
 
-            for (int j = 0; j <= gatesNumber; j++)
+            for (int j = 0; j < gatesNumber; j++)
             {
                 _bonusGateList.Add(_roadController.bonusGatesController.GetNextTemplatedGate(blockData.gateArgs[j]));
             }
 
         }
-        else
+        else        // when Settings doesn't have gate args in the current template of a block, so we have to create it randomly (at least 1 gate for a block)
         {
             int r = UnityEngine.Random.Range(1, maxGatesQuantity + 1);
             for (int j = 0; j < r; j++)
@@ -155,6 +161,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
                 _bonusGateList.Add(_roadController.bonusGatesController.GetNextGate());
             }
         }
+        // created gates placing on the current block
         float freeSpace = (maxGatesQuantity - _bonusGateList.Count)* _settings.minDistanceBetweenGates;
         float allowedXPos = 2f;
         for (int i = 0; i < _bonusGateList.Count; i++)
@@ -187,16 +194,15 @@ public class RoadBlock : MonoBehaviour, IPoolItem
         _finishLine = Instantiate(_prefabHolder.finishLinePrefab);
         _finishLine.SubscribeForSuccessfulFinish(()=> _mainLogic.SetGameState(GameState.win));
         _finishLine.transform.SetParent(_onBlockObjectsParentTransform);
-        _finishLine.gameObject.transform.localPosition = new Vector3(-(_blockData.length-2), 1,0);
-        _finishLine.gameObject.SetActive(true);
+        _finishLine.gameObject.transform.localPosition = new Vector3(-(_blockData.length - 2), 0.7f,0);
+        _finishLine.SetFinishText(_prefabHolder, _gameFieldHelper);
     }
 
-    public void SetupView(int viewLength, int fullBlockLength)
+    public void SetupView(int fullLength, int viewLength)
     {
-        _viewBuilder.BuildView(viewLength, fullBlockLength);
-        //_onBlockObjectsParentTransform.localPosition = new Vector3(-fullBlockLength / 2f, 0.5f, 0);
-        _blockBody.transform.localPosition = new Vector3(-fullBlockLength / 2f, 0, 0);
-        _blockBody.transform.localScale = new Vector3(fullBlockLength + 1, 2, 6.5f);
+        _viewBuilder.BuildView(_blockData.length);
+        _blockBody.transform.localPosition = new Vector3(-fullLength / 2f, 0, 0);
+        _blockBody.transform.localScale = new Vector3(fullLength + 0.8f, 2, 6.5f);
     }
 
     public  void CheckForHiding(float currentPlayerPosX)
@@ -229,6 +235,6 @@ public class RoadBlock : MonoBehaviour, IPoolItem
         {
             _roadController.bonusGatesController.GetBonusGatePoolManager().ReleaseItem(gate);
         }
-       
+        _bonusGateList.Clear();
     }
 }

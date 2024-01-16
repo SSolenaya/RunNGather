@@ -7,7 +7,7 @@ public class Settings : ScriptableObject
 {
     public int roadStartDistance = 8;                       //             player's distance from current block for doing check of hiding 
     public int playerSpeed = 5;
-    public int minBlockLenght = 15;
+    public int minBlockLenght = 8;
     public int maxBlockLenght = 30;                                    
     public int roadEndDistance = 15;                       //             player's distance from current block for building new blocks                                
     public int startingBlockNumber = 10;                   //             block's amount that is built on start

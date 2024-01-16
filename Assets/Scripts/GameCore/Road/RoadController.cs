@@ -57,7 +57,7 @@ public class RoadController : MonoBehaviour
         blockData.length = Random.Range(_settings.minBlockLenght, _settings.maxBlockLenght);
         RoadBlock block = _roadBlockPoolManager.GetPoolItem<RoadBlock>();
         _roadEndX = _positionForNextBlock.x - blockData.length;
-        blockData.nextAbyssLength = Random.Range(_settings.minBlockLenght /4, (blockData.length + 1));
+        blockData.nextAbyssLength = Random.Range(_settings.minBlockLenght /4, _settings.minBlockLenght*2);
         block.gameObject.name = "Block_" + _roadBlocksList.Count.ToString();
         block.Setup(this, blockData, _positionForNextBlock, isFinalBlock: false);
         _positionForNextBlock += new Vector3(-(blockData.nextAbyssLength + blockData.length), 0, 0);

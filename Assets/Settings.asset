@@ -88,48 +88,42 @@ MonoBehaviour:
       gateArgs:
       - leftGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 20
         rightGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 2
+          modifier: 2
       - leftGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 1
+          modifier: 4
         rightGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 16
       mandatoryPlanksNumber: 9
       nextAbyssLength: 8
     - length: 20
       gateArgs:
       - leftGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 2
+          modifier: 3
+        rightGateArgs:
+          opType: 3
+          modifier: 5
+      - leftGateArgs:
+          opType: 2
+          modifier: 2
         rightGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 65
       - leftGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 1
         rightGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 3
+          modifier: 2
       mandatoryPlanksNumber: 16
       nextAbyssLength: 9
     - length: 5
-      gateArgs:
-      - leftGateArgs:
-          opType: 0
-          modifier: 0
-        rightGateArgs:
-          opType: 0
-          modifier: 0
-      - leftGateArgs:
-          opType: 0
-          modifier: 0
-        rightGateArgs:
-          opType: 0
-          modifier: 0
+      gateArgs: []
       mandatoryPlanksNumber: 4
       nextAbyssLength: 10
   - blocksList:
@@ -137,80 +131,80 @@ MonoBehaviour:
       gateArgs:
       - leftGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 18
         rightGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 2
+          modifier: 2
       - leftGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 1
+          modifier: 10
         rightGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 2
+          modifier: 3
       mandatoryPlanksNumber: 7
       nextAbyssLength: 6
     - length: 8
       gateArgs:
       - leftGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 2
+          modifier: 2
         rightGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 3
+          modifier: 2
       - leftGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 1
+          modifier: 14
         rightGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 16
       mandatoryPlanksNumber: 5
       nextAbyssLength: 6
     - length: 25
       gateArgs:
       - leftGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 35
+        rightGateArgs:
+          opType: 1
+          modifier: 2
+      - leftGateArgs:
+          opType: 2
+          modifier: 2
+        rightGateArgs:
+          opType: 3
+          modifier: 8
+      - leftGateArgs:
+          opType: 1
+          modifier: 21
         rightGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 36
       - leftGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 10
         rightGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 2
+          modifier: 2
       mandatoryPlanksNumber: 10
       nextAbyssLength: 15
     - length: 10
       gateArgs:
       - leftGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 27
         rightGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 1
+          modifier: 7
       - leftGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 2
+          modifier: 3
         rightGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 2
       mandatoryPlanksNumber: 3
       nextAbyssLength: 4
     - length: 3
-      gateArgs:
-      - leftGateArgs:
-          opType: 0
-          modifier: 0
-        rightGateArgs:
-          opType: 0
-          modifier: 0
-      - leftGateArgs:
-          opType: 0
-          modifier: 0
-        rightGateArgs:
-          opType: 0
-          modifier: 0
+      gateArgs: []
       mandatoryPlanksNumber: 1
       nextAbyssLength: 0
   - blocksList:
@@ -218,16 +212,28 @@ MonoBehaviour:
       gateArgs:
       - leftGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 15
         rightGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 2
+          modifier: 4
       - leftGateArgs:
-          opType: 0
-          modifier: 0
+          opType: 1
+          modifier: 9
         rightGateArgs:
           opType: 0
-          modifier: 0
+          modifier: 16
+      - leftGateArgs:
+          opType: 3
+          modifier: 8
+        rightGateArgs:
+          opType: 2
+          modifier: 3
+      - leftGateArgs:
+          opType: 3
+          modifier: 4
+        rightGateArgs:
+          opType: 0
+          modifier: 21
       mandatoryPlanksNumber: 30
       nextAbyssLength: 10
     - length: 4

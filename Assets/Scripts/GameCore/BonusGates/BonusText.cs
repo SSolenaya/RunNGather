@@ -10,5 +10,13 @@ public class BonusText : MonoBehaviour
     public void Setup(GateOperator gateOperator)
     {
         _bonusText.text = gateOperator.GetActionSymbol() + gateOperator.GetModifier();
+        _bonusText.gameObject.SetActive(true);
+    }
+
+    public void ShowFinishText()
+    {
+        _bonusText.color = Color.white;
+        _bonusText.text = "FINISH";
+        _bonusText.gameObject.SetActive(true);
     }
 }

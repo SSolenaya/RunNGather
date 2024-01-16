@@ -39,7 +39,6 @@ public class BonusGate : MonoBehaviour, IPoolItem
         {
             Destroy(_rightBonusText.gameObject);
         }
-
         Destroy(_leftBonus);
         Destroy(_rightBonus);
     }
