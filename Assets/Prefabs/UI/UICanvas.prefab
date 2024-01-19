@@ -207,9 +207,97 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4703025360272653735, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 236.1148
+      objectReference: {fileID: 0}
     - target: {fileID: 5238511447474591749, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
       propertyPath: m_Name
       value: GameUIController
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_text
+      value: 0.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_fontSize
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_margin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_colorMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d8d19569408944550966b4c742480acb, type: 2}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_fontStyle
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.6745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.98039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_enableKerning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: fa008c1aa22124b8da6bea372f181355, type: 2}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_characterSpacing
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4289526527
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_horizontalMapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915482918580677887, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}
+      propertyPath: m_IsTextObjectScaleStatic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00ce6228f2d6fc04cb7c9486996271a5, type: 3}

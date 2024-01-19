@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +37,7 @@ public class GameOverModalWin : BaseModalWindow
         });
         if (_args.distance > 0)
         {
-            _distanceValueTxt.text = _args.distance.ToString("0.0");
+            _distanceValueTxt.text = _args.distance.ToString("0.0", new CultureInfo("en-US"));
             
         }
         _distanceMsgObj.SetActive(_args.distance > 0);
