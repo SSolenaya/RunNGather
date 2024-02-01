@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 10bb7a8630ff4444eb7b8f99aefe7192
+guid: 486e0176496f2ce4aa506da4fe357ec1
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable:
-  - first:
-      74: -8437183620723173158
-    second: RoundPlane|CylinderAction
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2

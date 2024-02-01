@@ -89,7 +89,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     private void Move()
     {
        transform.Translate(_currentDirectionV3 * _speed * Time.deltaTime);
-        if (transform.position.y < -45f)
+        if (transform.position.y < -25f)
         {
             SetPlayerState(PlayerState.none);
             _onFallingAct?.Invoke();
