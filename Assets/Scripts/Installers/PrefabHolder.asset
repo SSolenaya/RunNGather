@@ -16,6 +16,7 @@ MonoBehaviour:
   landscapeObjectsList:
   - {fileID: 4632982600923096994, guid: ff7cee6966bbf7f4c91201919b7c5ae7, type: 3}
   - {fileID: 2816850953555237345, guid: cd1a30a5823797f409c9d8cbbfe5c65b, type: 3}
+  - {fileID: 3343071574757389534, guid: 14eae02272021ea499f2c995b22706c2, type: 3}
   playerPrefab: {fileID: 2222915898794353521, guid: 4180c29a242e1d54183746011ab4de65, type: 3}
   plankPrefab: {fileID: 2632873513385221019, guid: 2918417d093d82945bb5585381ef5038, type: 3}
   bonusGatePrefab: {fileID: 815020604077429445, guid: 2dc1292cab8168346950934998186aee, type: 3}

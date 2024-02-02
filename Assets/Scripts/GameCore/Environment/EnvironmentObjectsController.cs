@@ -13,12 +13,14 @@ public class EnvironmentObjectsController : MonoBehaviour
     [Inject] private PlayerController _playerController;
     private List<LandscapeObject> _landscapeObjectsList = new List<LandscapeObject>();
     private List<int> _landscapeObjectsIndexes = new List<int> ();
-    private Vector3 _endOfLandscapePos = Vector3.zero;
-    private float deltaX = 500f;
-    
+    private Vector3 _endOfLandscapePos;
+    private float distance = 900f;        //  check for next landscape piece necesserity
+    private float deltaX = 1100f;        //  check for next landscape piece necesserity
+
 
     public void Restart()
     {
+        _endOfLandscapePos = Vector3.zero;
         ClearAllBlocks();
         SetupBlocks();
         GenerateLandscape();
@@ -45,7 +47,7 @@ public class EnvironmentObjectsController : MonoBehaviour
 
     private void CheckForNExtLandscapeObject(float playersXPos)
     {
-        if (Math.Abs(_endOfLandscapePos.x - playersXPos) <= deltaX)
+        if (Math.Abs(_endOfLandscapePos.x - playersXPos) <= distance)
         {
             GenerateLandscape();
         }
@@ -91,7 +93,7 @@ public class EnvironmentObjectsController : MonoBehaviour
     {
         obj.transform.localPosition = _endOfLandscapePos;
         obj.gameObject.SetActive(true);
-        _endOfLandscapePos -= Vector3.right * 1000;
+        _endOfLandscapePos -= Vector3.right * deltaX;
     }
 
     private void ClearAllBlocks()
