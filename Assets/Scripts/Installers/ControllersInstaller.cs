@@ -13,6 +13,8 @@ public class ControllersInstaller : MonoInstaller
 
         Container.Bind<RoadController>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
 
+        Container.Bind<EnvironmentObjectsController>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
+
         Container.Bind<ModalWindowsController>().FromNewComponentOnNewGameObject().AsSingle().NonLazy();
 
         Container.Bind<MainLogic>().AsSingle().NonLazy();

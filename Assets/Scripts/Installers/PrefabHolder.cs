@@ -6,6 +6,7 @@ using UnityEngine;
 public class PrefabHolder : ScriptableObject
 {
     public RoadBlock roadBlockPrefab;
+    public List<LandscapeObject> landscapeObjectsList;
     public PlayerEntity playerPrefab;
     public Plank plankPrefab;
     public BonusGate bonusGatePrefab;

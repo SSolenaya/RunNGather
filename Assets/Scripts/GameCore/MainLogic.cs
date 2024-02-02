@@ -26,6 +26,7 @@ public class MainLogic
     }
     [Inject] private Settings _settings;
     [Inject] private RoadController _roadController;
+    [Inject] private EnvironmentObjectsController _environmentObjectsController;
     [Inject] private PlayerController _playerController;
     [Inject] private ModalWindowsController _modalWindowsController;
     [Inject] private MenuController _mainMenuController;
@@ -38,7 +39,8 @@ public class MainLogic
     {
         SetGameState(GameState.wait);
         _playerController.Restart();
-        _roadController.Restart();
+        _roadController.Restart(); 
+        _environmentObjectsController.Restart();
         _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText); 
     }
 
