@@ -13,9 +13,9 @@ public class SelfMovingBlock : MonoBehaviour
     private float speed;
 
 
-    private void Start()
+    private void OnEnable()
     {
-        _startingPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        _startingPosition = transform.position;
         float r = Random.Range(0, 1f);
         int s = Random.Range(1, 10);
         speed = s * 0.005f;
