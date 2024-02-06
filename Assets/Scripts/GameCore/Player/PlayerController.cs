@@ -2,8 +2,6 @@ using System;
 using UnityEngine;
 using UniRx;
 using Zenject;
-using System.ComponentModel;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour
 {
