@@ -252,3 +252,4 @@ MonoBehaviour:
           modifier: 0
       mandatoryPlanksNumber: 2
       nextAbyssLength: 1
+  currentCharType: 1

@@ -39,7 +39,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     [SerializeField] private SwipeMovingController _swipeController;
     [SerializeField] private PlayerCollisionController _collisionController;
     private int _speed;
-    private PlayerState _playerGameState = PlayerState.none;
+    private PlayerState _playerGameState = PlayerState.Idle;
     private PlayerControlState _playerControlState = PlayerControlState.controlled;
     private CharacterAnimator _characterAnimator;
     private Vector3 _currentDirectionV3;
@@ -59,6 +59,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         SetView();
         _swipeController.Setup(this);
         _collisionController.Setup(this);
+        SetPlayerState(PlayerState.Idle);
     }
 
     
@@ -66,12 +67,12 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     {
         switch (_playerGameState)
         {
-            case PlayerState.run:
+            case PlayerState.Run:
                 SendRay();
                 Move();
                 SetNewLocalPos();
                 break;
-            case PlayerState.fall:
+            case PlayerState.Fall:
                 Move();
                 break;
         }
@@ -79,7 +80,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
 
     private void SetView()
     {
-        _characterAnimator = _characterModelsController.GetModelByType(CharacterType.cowboy);           //  TODO: Get model by logic
+        _characterAnimator = _characterModelsController.GetModelByType(_settings.currentCharType);           //  TODO: Get model by logic
         _characterAnimator.transform.SetParent(_parentForView);
         _characterAnimator.transform.localScale = Vector3.one;
         _characterAnimator.transform.localPosition = Vector3.zero;
@@ -91,7 +92,6 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
        transform.Translate(_currentDirectionV3 * _speed * Time.deltaTime);
         if (transform.position.y < -40f)
         {
-            SetPlayerState(PlayerState.none);
             _onFallingAct?.Invoke();
         }
     }
@@ -115,7 +115,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         RaycastHit hit;
         if (!Physics.Raycast(ray, out hit, 20, _layerMask))
         {
-           SetPlayerState(PlayerState.build);
+           SetPlayerState(PlayerState.Build);
            SetControlState(PlayerControlState.uncontrolled);
             
         } else
@@ -146,15 +146,17 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         _characterAnimator.SetAnimationState(_playerGameState);
         switch (newState)
         {
-            case PlayerState.idle:
+            case PlayerState.Idle:
                 _currentRoadBlock = null;
                 break;
-            case PlayerState.run:
+            case PlayerState.Run:
                 break;
-            case PlayerState.fall:
+            case PlayerState.Win:
+                break;
+            case PlayerState.Fall:
                 fallingTween = DOVirtual.Float(0, _speed * 5, 1f, var => { _currentDirectionV3 = Vector3.down * var; }).SetEase(Ease.OutQuad);
                 break;
-            case PlayerState.build:
+            case PlayerState.Build:
                 
                 if (PlankNumber > 0)
                 {
@@ -163,13 +165,11 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
                     }
                     BuildPlank();
                     _currentRoadBlock = null;
-                    SetPlayerState(PlayerState.run);
+                    SetPlayerState(PlayerState.Run);
                 } else
                 {
-                    SetPlayerState(PlayerState.fall);
+                    SetPlayerState(PlayerState.Fall);
                 }
-                break;
-            case PlayerState.none:
                 break;
             default:
                 Debug.LogError("Player state isn't defined");
@@ -212,7 +212,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         fallingTween?.Kill();
         PlankNumber = startingPlankNumber;
         ClearExistingPlanks();
-        SetPlayerState(PlayerState.idle);
+        SetPlayerState(PlayerState.Idle);
         transform.localPosition = new Vector3(-0.25f, 1f, 0);
         xLocalPos.SetValueAndForceNotify(transform.localPosition.x);
         _currentDirectionV3 = Vector3.left;
@@ -252,11 +252,11 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
 
 public enum PlayerState
 {
-    idle,
-    run,
-    build,
-    fall,
-    none
+    Idle,
+    Run,
+    Build,
+    Fall,
+    Win
 }
 
 

@@ -21,6 +21,8 @@ public class Settings : ScriptableObject
     public List<BonusGateArgs> bonusGatesList = new();          //  replace with levelsTemplatesList
     public List<LevelData> levelTemplatesList = new();
 
+    public CharacterType currentCharType;                           //  test bear temp
+
 }
 
 

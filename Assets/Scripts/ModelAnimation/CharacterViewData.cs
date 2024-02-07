@@ -13,5 +13,7 @@ public class CharacterViewData
 public enum CharacterType
 {
     cowboy,
+    catcher,
+    nosedman,
     test        //  test bear
 }

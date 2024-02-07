@@ -42,6 +42,7 @@ public class MainLogic
         _roadController.Restart(); 
         _environmentObjectsController.Restart();
         _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText); 
+
     }
 
     public void SetGameState(GameState newState)
@@ -59,7 +60,7 @@ public class MainLogic
                 _audioController.PlayWinningSound();
                 Debug.Log("Level finished !!!");
                 LevelNumber++;
-                _playerController.SetPlayerIdle();
+                _playerController.PlayerWins();
                 FinishLevelWinArgs finLvlArgs = new FinishLevelWinArgs();
                 finLvlArgs.backToMenuAct += _mainMenuController.ShowMainMenu;
                 finLvlArgs.nextLvlAct += Restart;

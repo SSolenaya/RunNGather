@@ -32,4 +32,8 @@ MonoBehaviour:
   modelsList:
   - iD: 0
     model: {fileID: 7786420840557707332, guid: ca6fd11b779584c4480e0f218ff2cc1d, type: 3}
+  - iD: 1
+    model: {fileID: 1059415616201796126, guid: 2e33240b2dc8b3241a441ada2bbb2040, type: 3}
+  - iD: 2
+    model: {fileID: 6723822444705066693, guid: c83d7cd05ad8ed64ba0cff178120f98e, type: 3}
   _audioControllerPrefab: {fileID: 6808848280828764049, guid: e98f37724a4562b4aa6d3a97b763c481, type: 3}

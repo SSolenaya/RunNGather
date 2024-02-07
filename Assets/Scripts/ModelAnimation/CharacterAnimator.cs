@@ -5,12 +5,12 @@ using UnityEngine;
 public class CharacterAnimator : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    private AnimationState _currentAnimationState = AnimationState.none;
+    private AnimationState _currentAnimationState = AnimationState.Idle;
 
     [ContextMenu("Blah-blah")]
     public void Test()
     {
-        animator.SetTrigger(PlayerState.run.ToString());
+        animator.SetTrigger(PlayerState.Run.ToString());
     }
 
 
@@ -18,16 +18,18 @@ public class CharacterAnimator : MonoBehaviour
     {
         switch (newPalyerState)
         {
-            case PlayerState.build:
-            case PlayerState.run:
-                ChangeAnimationState(AnimationState.running);
+            case PlayerState.Build:
+            case PlayerState.Run:
+                ChangeAnimationState(AnimationState.Run);
                 break;
-            case PlayerState.fall:
-            case PlayerState.none:
-                ChangeAnimationState(AnimationState.falling);
+            case PlayerState.Fall:
+                ChangeAnimationState(AnimationState.Fall);
                 break;
-            case PlayerState.idle:
-                ChangeAnimationState(AnimationState.idle);
+            case PlayerState.Idle:
+                ChangeAnimationState(AnimationState.Idle);
+                break;
+            case PlayerState.Win:
+                ChangeAnimationState(AnimationState.Win);
                 break;
         }
     }
@@ -38,27 +40,17 @@ public class CharacterAnimator : MonoBehaviour
         {
             return;
         }
+        animator.ResetTrigger(_currentAnimationState.ToString());
         _currentAnimationState = newAnimationState;
-        switch (_currentAnimationState)
-        {
-            case AnimationState.running:
-                animator.ResetTrigger("idle");
-                animator.SetTrigger("run");
-                break;
-            case AnimationState.falling:
-                animator.SetTrigger("fall");
-                break;
-            case AnimationState.idle:
-                animator.SetTrigger("idle");
-                break;
-        }
+        animator.SetTrigger(_currentAnimationState.ToString());
     }
 }
 
 public enum AnimationState
 {
-    running,
-    falling,
-    idle,
-    none
+    Idle,
+    Run,
+    Build,
+    Win,
+    Fall
 }
