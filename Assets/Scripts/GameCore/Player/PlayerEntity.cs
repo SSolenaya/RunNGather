@@ -35,6 +35,9 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
             _planksNumText.text = _plankNum.ToString();
         }
     }
+
+    public RoadBlock CurrentRoadBlock { get => _currentRoadBlock; set => _currentRoadBlock = value; }
+
     [SerializeField] private TMP_Text _planksNumText;
     [SerializeField] private SwipeMovingController _swipeController;
     [SerializeField] private PlayerCollisionController _collisionController;
@@ -49,6 +52,8 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     private PoolManager _plankPoolManager;
     private Action _onFallingAct;
     [SerializeField] private LayerMask _layerMask;
+    private BasePlayerEntityState _currentState;
+    private Dictionary<Type, BasePlayerEntityState> _entityStates = new Dictionary<Type, BasePlayerEntityState>();
 
     public void Setup(PoolManager poolManager)
     {
@@ -57,25 +62,42 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         //Observable.EveryUpdate().Subscribe(_ => SetNewLocalPos()).AddTo(this);
         _speed = _settings.playerSpeed;
         SetView();
+        InitialPlayerEntityStates();
         _swipeController.Setup(this);
         _collisionController.Setup(this);
-        SetPlayerState(PlayerState.Idle);
+        SetPlayerState<IdlePlayerEntityState>();
     }
+
+    private void InitialPlayerEntityStates()
+    {
+        _entityStates.Add(typeof(IdlePlayerEntityState), new IdlePlayerEntityState(this)); 
+        _entityStates.Add(typeof(RunPlayerEntityState), new RunPlayerEntityState(this));
+        _entityStates.Add(typeof(BuildPlayerEntityState), new BuildPlayerEntityState(this));
+        _entityStates.Add(typeof(FallPlayerEntityState), new FallPlayerEntityState(this));
+        _entityStates.Add(typeof(WinPlayerEntityState), new WinPlayerEntityState(this));
+    }
+
+    public CharacterAnimator GetCharacterAnimator() { return _characterAnimator; }
 
     
     void Update()
     {
-        switch (_playerGameState)
+        if (_currentState != null)
         {
-            case PlayerState.Run:
-                SendRay();
-                Move();
-                SetNewLocalPos();
-                break;
-            case PlayerState.Fall:
-                Move();
-                break;
+            _currentState.OnUpdateState();
         }
+    }
+
+    public void Running()
+    {
+        SendRay();
+        Move();
+        SetNewLocalPos();
+    }
+
+    public void Fall()
+    {
+        Move();
     }
 
     private void SetView()
@@ -90,7 +112,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
     private void Move()
     {
        transform.Translate(_currentDirectionV3 * _speed * Time.deltaTime);
-        if (transform.position.y < -40f)
+        if (transform.position.y < -15f)
         {
             _onFallingAct?.Invoke();
         }
@@ -115,7 +137,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         RaycastHit hit;
         if (!Physics.Raycast(ray, out hit, 20, _layerMask))
         {
-           SetPlayerState(PlayerState.Build);
+           SetPlayerState<BuildPlayerEntityState>();
            SetControlState(PlayerControlState.uncontrolled);
             
         } else
@@ -136,45 +158,35 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
 
     private Tween fallingTween;
 
-    public void SetPlayerState(PlayerState newState)
+    public void SetPlayerState<T>()
     {
-        if (_playerGameState == newState)
+        if (_currentState is T) return;
+        _currentState = _entityStates[typeof(T)];
+        _currentState.OnEnterState();
+    }
+
+
+    public void Building()
+    {
+        if (PlankNumber > 0)
         {
-            return;
+            if (_currentRoadBlock != null)
+            {
+                _currentPlankPlace = new Vector3(_currentRoadBlock.GetBlockEndXPos() + 0.25f, 0.95f, transform.position.z);
+            }
+            BuildPlank();
+            _currentRoadBlock = null;
+            SetPlayerState<RunPlayerEntityState>();
         }
-        _playerGameState = newState;
-        _characterAnimator.SetAnimationState(_playerGameState);
-        switch (newState)
+        else
         {
-            case PlayerState.Idle:
-                _currentRoadBlock = null;
-                break;
-            case PlayerState.Run:
-                break;
-            case PlayerState.Win:
-                break;
-            case PlayerState.Fall:
-                fallingTween = DOVirtual.Float(0, _speed * 5, 1f, var => { _currentDirectionV3 = Vector3.down * var; }).SetEase(Ease.OutQuad);
-                break;
-            case PlayerState.Build:
-                
-                if (PlankNumber > 0)
-                {
-                    if (_currentRoadBlock != null){
-                        _currentPlankPlace = new Vector3 (_currentRoadBlock.GetBlockEndXPos() + 0.25f, 0.95f, transform.position.z);
-                    }
-                    BuildPlank();
-                    _currentRoadBlock = null;
-                    SetPlayerState(PlayerState.Run);
-                } else
-                {
-                    SetPlayerState(PlayerState.Fall);
-                }
-                break;
-            default:
-                Debug.LogError("Player state isn't defined");
-                break;
+            SetPlayerState<FallPlayerEntityState>();
         }
+    }
+
+    public void ChangeDirectionOnFalling()
+    {
+        fallingTween = DOVirtual.Float(0, _speed * 5, 1f, var => { _currentDirectionV3 = Vector3.down * var; }).SetEase(Ease.OutQuad);
     }
 
     public void SetControlState(PlayerControlState newState)
@@ -212,7 +224,7 @@ public class PlayerEntity : MonoBehaviour, PlankChangerActor
         fallingTween?.Kill();
         PlankNumber = startingPlankNumber;
         ClearExistingPlanks();
-        SetPlayerState(PlayerState.Idle);
+        SetPlayerState<IdlePlayerEntityState>();
         transform.localPosition = new Vector3(-0.25f, 1f, 0);
         xLocalPos.SetValueAndForceNotify(transform.localPosition.x);
         _currentDirectionV3 = Vector3.left;

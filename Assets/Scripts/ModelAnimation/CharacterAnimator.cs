@@ -13,33 +13,13 @@ public class CharacterAnimator : MonoBehaviour
         animator.SetTrigger(PlayerState.Run.ToString());
     }
 
-
-    public void SetAnimationState(PlayerState newPalyerState)
-    {
-        switch (newPalyerState)
-        {
-            case PlayerState.Build:
-            case PlayerState.Run:
-                ChangeAnimationState(AnimationState.Run);
-                break;
-            case PlayerState.Fall:
-                ChangeAnimationState(AnimationState.Fall);
-                break;
-            case PlayerState.Idle:
-                ChangeAnimationState(AnimationState.Idle);
-                break;
-            case PlayerState.Win:
-                ChangeAnimationState(AnimationState.Win);
-                break;
-        }
-    }
-
     public void ChangeAnimationState(AnimationState newAnimationState)
     {
         if (_currentAnimationState == newAnimationState)
         {
             return;
         }
+        Debug.LogError("New animator state: " + newAnimationState);
         animator.ResetTrigger(_currentAnimationState.ToString());
         _currentAnimationState = newAnimationState;
         animator.SetTrigger(_currentAnimationState.ToString());

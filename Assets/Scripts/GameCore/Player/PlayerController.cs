@@ -43,17 +43,17 @@ public class PlayerController : MonoBehaviour
 
     public void SetPlayerIdle()
     {
-        _playerEntity.SetPlayerState(PlayerState.Idle);
+        _playerEntity.SetPlayerState<IdlePlayerEntityState>();
     }
 
     public void MakePlayerRun()
     {
-        _playerEntity.SetPlayerState(PlayerState.Run);
+        _playerEntity.SetPlayerState<RunPlayerEntityState>();
     }
 
     public void PlayerWins()
     {
-        _playerEntity.SetPlayerState(PlayerState.Win);
+        _playerEntity.SetPlayerState<WinPlayerEntityState>();
     }
 
     public float GetPlayerDistance()
