@@ -174,12 +174,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentForView: {fileID: 3750820926327960706}
-  xLocalPos:
-    value: 0
   _planksNumText: {fileID: 5846414647812288526}
   _swipeController: {fileID: 4163268764114285147}
   _collisionController: {fileID: 892186679876543605}
-  _layerMask:
+  layerMask:
     serializedVersion: 2
     m_Bits: 64
 --- !u!114 &4163268764114285147

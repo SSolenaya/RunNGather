@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using UniRx;
 using Vector3 = UnityEngine.Vector3;
 
 public class RoadBlock : MonoBehaviour, IPoolItem
 {
+    public bool IsInPool { get; set; }
     [SerializeField] private RoadBlockViewBuilder _viewBuilder;
     [SerializeField] private GameObject _blockBody;
     [SerializeField] private Transform _onBlockObjectsParentTransform;
@@ -14,23 +16,24 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     [Inject] private PrefabHolder _prefabHolder;
     [Inject] private MainLogic _mainLogic;
     [Inject] private GameFieldHelper _gameFieldHelper;
+    [Inject] private PlanksManager _planksManager;
     private RoadController _roadController;
     private float _thisBlockEndPosX;
     private BlockData _blockData;
     private List<Plank> _planksList = new List<Plank>();
-    private PoolManager _plankPool;
     private List<BonusGate> _bonusGateList = new List<BonusGate>();
     private FinishLine _finishLine;
     private bool _isFinalBlock;
-    public bool IsInPool { get; set; }
+    private ReactiveCommand _onHidingCommand;
+    
 
     public void Setup(RoadController roadController, BlockData blockData, Vector3 position, bool isFinalBlock)
     {
+        _onHidingCommand = new ReactiveCommand();
         _roadController = roadController;
         _blockData = blockData;
         blockData.length = blockData.length <= 6? 6: blockData.length;
         _blockData.length = (blockData.length % 2) > 0 ? blockData.length + 1 : blockData.length;       //  due to minimal size of the scalable block's part model, that equals 2 unity units
-        _plankPool = _roadController.GetPlankPoolManager();
         _isFinalBlock = isFinalBlock;
         transform.localPosition = position;
         int blockScalableArea = _blockData.length - 4;  // 2*2=4 - size of starting and ending block's parts together - it is prohibited to build gate there
@@ -63,6 +66,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
 
     public int[] GetRandomCells()
     {
+        Debug.Log("Block " + gameObject.name);
         List<int> resultList = new List<int>();
         
         for (int i = 0; i < (_blockData.length-1); i++)
@@ -71,6 +75,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
             if (r < _settings.plankChance)
             {
                 resultList.Add(i);
+                Debug.Log(i);
             }
         }
 
@@ -107,14 +112,14 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     {
         for (int i = 0; i < plankPlacesArray.Length; i++)
         {
-          Plank plank = _plankPool.GetPoolItem<Plank>();
+          Plank plank = _planksManager.GetPlank();                                                
           plank.transform.SetParent(_onBlockObjectsParentTransform);
-          plank.SetupPoolManager(_plankPool);
           float zCoord = UnityEngine.Random.Range(-1.35f, 1.35f);
           plank.transform.localPosition = new Vector3(-(0.5f + plankPlacesArray[i]), 0.5f, zCoord);
           plank.gameObject.name = "Plank_" + i + "_on_" + gameObject.name;
           plank.gameObject.SetActive(true);
-          _planksList.Add(plank);
+          IDisposable dis = _onHidingCommand.Subscribe(_ => plank.HidePlank());
+          plank.SetSubscription(dis);
         }
     }
 
@@ -212,6 +217,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
         return gameObject;
     }
 
+
     void IPoolItem.Release()
     {
         if (_finishLine != null)
@@ -219,11 +225,10 @@ public class RoadBlock : MonoBehaviour, IPoolItem
             _finishLine.Release();
             Destroy(_finishLine.gameObject); 
         }
-        foreach (var plank in _planksList)
-        {
-            _plankPool.ReleaseItem(plank);
-        }
-        _planksList.Clear();
+
+        _onHidingCommand.Execute();
+        _onHidingCommand.Dispose();
+
         foreach (var gate in _bonusGateList)
         {
             _roadController.bonusGatesController.GetBonusGatePoolManager().ReleaseItem(gate);

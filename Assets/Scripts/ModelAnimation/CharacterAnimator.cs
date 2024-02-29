@@ -19,7 +19,6 @@ public class CharacterAnimator : MonoBehaviour
         {
             return;
         }
-        Debug.LogError("New animator state: " + newAnimationState);
         animator.ResetTrigger(_currentAnimationState.ToString());
         _currentAnimationState = newAnimationState;
         animator.SetTrigger(_currentAnimationState.ToString());

@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class MultiplicationPlankOperator : GateOperator
 {
-    public override void ChangePlankNumber(PlankChangerActor plankChangerActor)
+    public override void ChangePlankNumber(PlanksCounter planksCounter)
     {
         if (!isInteractable) return;
-        base.ChangePlankNumber(plankChangerActor);
-        plankChangerActor.PlankNumber *= _modifier;
+        base.ChangePlankNumber(planksCounter);
+        planksCounter.PlankNumber *= _modifier;
     }
 
     public override string GetActionSymbol()

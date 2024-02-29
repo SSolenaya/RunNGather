@@ -10,7 +10,7 @@ public abstract class BasePlayerEntityState
     public BasePlayerEntityState(PlayerEntity playerEntity)
     {
         _playerEntity = playerEntity;
-        _characterAnimator = playerEntity.GetCharacterAnimator();
+        _characterAnimator = playerEntity.GetCharacterAnimator;
     }
 
     public virtual void OnEnterState() { }

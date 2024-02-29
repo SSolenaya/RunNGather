@@ -7,12 +7,12 @@ using UnityEngine;
 
 public class PlayerCollisionController : MonoBehaviour
 {
-    private PlankChangerActor _plankChangerActor;
+    private PlanksCounter _plankCounter;
 
 
-    public void Setup(PlankChangerActor plankChangerActor)
+    public void Setup(PlanksCounter plankCounter)
     {
-       _plankChangerActor = plankChangerActor;
+        _plankCounter = plankCounter;
     }
 
     public void OnTriggerEnter(Collider col)
@@ -20,7 +20,7 @@ public class PlayerCollisionController : MonoBehaviour
         var t = col.gameObject.GetComponent<IPlankNumberChanger>();
         if (t != null)
         {
-            t.ChangePlankNumber(_plankChangerActor);
+            t.ChangePlankNumber(_plankCounter);
         }
     }
 

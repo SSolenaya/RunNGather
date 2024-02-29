@@ -110,7 +110,7 @@ public class BonusGate : MonoBehaviour, IPoolItem
         _rightBonus.SetUninteractable();
     }
 
-    public void PlaySoundOnCroosingGate()
+    public void PlaySoundOnCrossingGate()
     {
         _audioController.PlayBonusPickingSound();
     }

@@ -9,7 +9,7 @@ using Random = System.Random;
 
 public interface IPlankNumberChanger
 {
-    void ChangePlankNumber(PlankChangerActor plankChangerActor);
+    void ChangePlankNumber(PlanksCounter plankCounter);
 }
 
 public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
@@ -23,7 +23,7 @@ public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
     {
         _modifier = modifierValue;
         _parentGate = parentGate;
-        _onBonusGateCross = parentGate.PlaySoundOnCroosingGate;
+        _onBonusGateCross = parentGate.PlaySoundOnCrossingGate;
     }
 
     public int GetModifier()                                    //  TODO: property
@@ -31,7 +31,7 @@ public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
         return _modifier;
     }
 
-    public virtual void ChangePlankNumber(PlankChangerActor plankChangerActor) 
+    public virtual void ChangePlankNumber(PlanksCounter plankCounter) 
     {
         _onBonusGateCross?.Invoke();
         _parentGate.SetInteracted();

@@ -6,31 +6,25 @@ using Zenject;
 public class PlayerController : MonoBehaviour
 {
     [Inject] private PrefabHolder _prefabHolder;
-    [Inject] private Settings _settings;
     [Inject] private GameFieldHelper _gameFieldHelper;
     [Inject] private MainLogic _mainLogic;
     [Inject] private DiContainer _diContainer;
-    private PoolManager _plankPoolManager;
     public PlayerEntity _playerEntity;
     private CompositeDisposable _disposables = new CompositeDisposable();
 
     public void Restart()
     {
-        if (_plankPoolManager == null)
-        {
-            _plankPoolManager = new PoolManager(_prefabHolder.plankPrefab, _settings.maxBlockLenght * _settings.startingBlockNumber, _gameFieldHelper, _diContainer);
-        }
         _disposables.Clear();
-        PlayerInstantiation(_plankPoolManager);
+        PlayerInstantiation();
     }
 
-    private void PlayerInstantiation(PoolManager pM)
+    private void PlayerInstantiation()
     {
         if (_playerEntity == null)
         {
             _playerEntity = _diContainer.InstantiatePrefab(_prefabHolder.playerPrefab).GetComponent<PlayerEntity>();
             _playerEntity.transform.SetParent(_gameFieldHelper.gameObjParent);
-            _playerEntity.Setup(pM);
+            _playerEntity.Setup();
             _playerEntity.SubscribeForFalling(() => _mainLogic.SetGameState(GameState.gameOver));
         }
         _playerEntity.Restart();

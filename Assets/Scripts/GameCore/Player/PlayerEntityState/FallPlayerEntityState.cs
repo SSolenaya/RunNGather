@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class FallPlayerEntityState : BasePlayerEntityState
 {
-    public FallPlayerEntityState(PlayerEntity playerEntity) : base(playerEntity)
+    private MovingEntity _movingEntity;
+
+    public FallPlayerEntityState(PlayerEntity playerEntity, MovingEntity movingEntity) : base(playerEntity)
     {
+        _movingEntity = movingEntity;
     }
 
     public override void OnEnterState()
     {
-        _playerEntity.ChangeDirectionOnFalling();
+        _movingEntity.ChangeDirectionOnFalling();
         _characterAnimator.ChangeAnimationState(AnimationState.Fall);
     }
 
     public override void OnUpdateState()
     {
-        _playerEntity.Fall();
+        _movingEntity.Move();
     }
 }

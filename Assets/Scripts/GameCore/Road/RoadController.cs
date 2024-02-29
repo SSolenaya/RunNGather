@@ -15,7 +15,6 @@ public class RoadController : MonoBehaviour
     private List<RoadBlock> _roadBlocksList = new List<RoadBlock>();
     private Vector3 _positionForNextBlock = Vector3.zero;
     private PoolManager _roadBlockPoolManager;
-    private PoolManager _plankPoolManager;
     private float _roadEndX;
 
     public void Restart()
@@ -23,10 +22,6 @@ public class RoadController : MonoBehaviour
         if (_roadBlockPoolManager == null)
         {
             _roadBlockPoolManager = new PoolManager(_prefabHolder.roadBlockPrefab, _settings.startingBlockNumber * 2, _gameFieldHelper, _diContainer);
-        }
-        if (_plankPoolManager == null)
-        {
-            _plankPoolManager = new PoolManager(_prefabHolder.plankPrefab, _settings.maxBlockLenght * _settings.startingBlockNumber, _gameFieldHelper, _diContainer);
         }
         ClearExistingRoad();
         switch (_mainLogic.GameMode)
@@ -109,9 +104,5 @@ public class RoadController : MonoBehaviour
         _roadBlocksList.Remove(roadBlock);
     }
 
-    public PoolManager GetPlankPoolManager()
-    {
-        return _plankPoolManager;
-    }
 
 }

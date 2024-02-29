@@ -32,17 +32,18 @@ public class MainLogic
     [Inject] private MenuController _mainMenuController;
     [Inject] private AudioController _audioController;
     [Inject] private UICanvasRoot _rootCanvas;
+    [Inject] private PlanksManager _planksManager;
     private GameState _gameState;
 
 
     public void Restart()
     {
         SetGameState(GameState.wait);
+        _planksManager.Restart();
         _playerController.Restart();
         _roadController.Restart(); 
         _environmentObjectsController.Restart();
-        _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText); 
-
+        _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText);
     }
 
     public void SetGameState(GameState newState)
