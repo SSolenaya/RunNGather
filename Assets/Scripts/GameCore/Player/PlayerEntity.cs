@@ -22,13 +22,18 @@ public class PlayerEntity : MonoBehaviour
     public ReactiveProperty<float> xLocalPos => _movingEntity.xLocalPos;
     private RoadBlock _currentRoadBlock;
     public RoadBlock CurrentRoadBlock { get => _currentRoadBlock; set => _currentRoadBlock = value; }
+    public bool IsControlled { 
+        get { 
+            return _currentRoadBlock != null && _currentState is RunPlayerEntityState;
+            } 
+        }
+
     [SerializeField] private Transform _parentForView;
     [SerializeField] private TMP_Text _planksNumText;
     [SerializeField] private SwipeMovingController _swipeController;
     [SerializeField] private PlayerCollisionController _collisionController;
     private MovingEntity _movingEntity;
     private PlayerState _playerGameState = PlayerState.Idle;
-    private PlayerControlState _playerControlState = PlayerControlState.controlled;
     private CharacterAnimator _characterAnimator;
     private PlanksCounter _planksCounter;
     private BasePlayerEntityState _currentState;
@@ -101,22 +106,7 @@ public class PlayerEntity : MonoBehaviour
         _currentState = _entityStates[typeof(T)];
         _currentState.OnEnterState();
     }
-
-    public void SetControlState(PlayerControlState newState)
-    {
-        if (_playerControlState == newState)
-        {
-            return;
-        }
-        _playerControlState = newState;
-        switch (newState)
-        {
-            case PlayerControlState.controlled:
-                break;
-            case PlayerControlState.uncontrolled:
-                break;
-        }
-    }
+    
     public void Restart()
     {
         _movingEntity.Restart();
@@ -129,11 +119,7 @@ public class PlayerEntity : MonoBehaviour
         return _playerGameState;
     }
 
-    public PlayerControlState GetControlState()
-    {
-        return _playerControlState;
-    }
-
+   
     //public void IncreasePlanksNumber(int count)
     //{
     //    plankDataReactProperty.Value.plankNumber += count*_settings.planksPoints;
@@ -150,11 +136,3 @@ public enum PlayerState
     Win
 }
 
-
-
-
-public enum PlayerControlState
-{
-    controlled,
-    uncontrolled
-}

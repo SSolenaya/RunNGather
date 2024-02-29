@@ -23,7 +23,7 @@ public class SwipeMovingController: MonoBehaviour
 
             if(_touch.phase == TouchPhase.Moved)
             {
-                if (_player.GetControlState() != PlayerControlState.controlled) return;
+                if (!_player.IsControlled) return;
                     float zCoord = transform.position.z + _touch.deltaPosition.x * _speed * Time.deltaTime;
                     zCoord = Mathf.Clamp(zCoord, -boardZ, boardZ);
                     transform.position = new Vector3(transform.position.x,
@@ -37,7 +37,7 @@ public class SwipeMovingController: MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            if (_player.GetControlState() != PlayerControlState.controlled) return;
+            if (!_player.IsControlled) return;
             float zCoord = transform.position.z + 10 * _speed * Time.deltaTime;
             zCoord = Mathf.Clamp(zCoord, -boardZ, boardZ);
             transform.position = new Vector3(transform.position.x,
@@ -47,7 +47,7 @@ public class SwipeMovingController: MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            if (_player.GetControlState() != PlayerControlState.controlled) return;
+            if (!_player.IsControlled) return;
             float zCoord = transform.position.z - 10 * _speed * Time.deltaTime;
             zCoord = Mathf.Clamp(zCoord, -boardZ, boardZ);
             transform.position = new Vector3(transform.position.x,

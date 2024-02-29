@@ -31,7 +31,7 @@ public class RunPlayerEntityState : BasePlayerEntityState
         if (!Physics.Raycast(ray, out hit, 20, _playerEntity.layerMask))
         {
             _playerEntity.SetPlayerState<BuildPlayerEntityState>();
-            _playerEntity.SetControlState(PlayerControlState.uncontrolled);
+            
 
         }
         else
@@ -44,7 +44,7 @@ public class RunPlayerEntityState : BasePlayerEntityState
             if (hitBlock != null)
             {
                 _playerEntity.CurrentRoadBlock = hitBlock;
-                _playerEntity.SetControlState(PlayerControlState.controlled);
+                
             }
 
         }
