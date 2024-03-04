@@ -11,11 +11,11 @@ public class PlanksOnBlockBuilder
     private PlanksManager _planksManager;
     private Settings _settings;
 
-    public PlanksOnBlockBuilder(RoadBlock currentBlock, BlockData blockData, PlanksManager planksManager, Settings settings)
+    public PlanksOnBlockBuilder(RoadBlock roadBlock, BlockData blockData, PlanksManager planksManager, Settings settings)
     {
-        _currentBlock = currentBlock;
+        _currentBlock = roadBlock;
         _blockData = blockData;
-        _currentBlockPlankParrent = currentBlock.GetObjectsOnBlockParent();
+        _currentBlockPlankParrent = _currentBlock.GetObjectsOnBlockParent();
         _planksManager = planksManager;
         _settings = settings;
     }

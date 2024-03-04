@@ -46,10 +46,8 @@ public class BonusGatesController
         return bonusGate;
     }
 
-    public PoolManager GetBonusGatePoolManager()
+    public void ReleaseGate(BonusGate gate)
     {
-        return _bonusGatePoolManager;
+        _bonusGatePoolManager.ReleaseItem(gate);
     }
-
-
 }

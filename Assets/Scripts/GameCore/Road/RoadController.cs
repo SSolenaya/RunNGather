@@ -5,7 +5,6 @@ using Zenject;
 
 public class RoadController : MonoBehaviour
 {
-    [Inject] public BonusGatesController bonusGatesController;
     [Inject] private PrefabHolder _prefabHolder;
     [Inject] private Settings _settings;
     [Inject] private GameFieldHelper _gameFieldHelper;
