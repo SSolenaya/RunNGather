@@ -18,6 +18,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     [Inject] private GameFieldHelper _gameFieldHelper;
     [Inject] private PlanksManager _planksManager;
     private RoadController _roadController;
+    private PlanksOnBlockBuilder _planksOnBlockBuilder;
     private float _thisBlockEndPosX;
     private BlockData _blockData;
     private List<Plank> _planksList = new List<Plank>();
@@ -39,7 +40,8 @@ public class RoadBlock : MonoBehaviour, IPoolItem
         int blockScalableArea = _blockData.length - 4;  // 2*2=4 - size of starting and ending block's parts together - it is prohibited to build gate there
         SetupView(_blockData.length, blockScalableArea);
         _thisBlockEndPosX = transform.localPosition.x - _blockData.length;
-        SetPlanks(_blockData.mandatoryPlanksNumber);
+        _planksOnBlockBuilder = new PlanksOnBlockBuilder(this, _blockData, _planksManager, _settings);
+        _planksOnBlockBuilder.SetPlanks(_blockData.mandatoryPlanksNumber);
         if (isFinalBlock)
         {
             FinishLineInstantiation();
@@ -53,74 +55,15 @@ public class RoadBlock : MonoBehaviour, IPoolItem
         return _thisBlockEndPosX;
     }
 
-    public void SetPlanks(int planksNeeded)
+    public Transform GetObjectsOnBlockParent()
     {
-        if (planksNeeded > 0)
-        {
-            PlanksInstantiation(GetSpecificCells(planksNeeded));
-        } else
-        {
-            PlanksInstantiation(GetRandomCells());
-        }
+        return _onBlockObjectsParentTransform;
     }
 
-    public int[] GetRandomCells()
+    public void SubscribeForHidingBlock(Plank plank)
     {
-        Debug.Log("Block " + gameObject.name);
-        List<int> resultList = new List<int>();
-        
-        for (int i = 0; i < (_blockData.length-1); i++)
-        {
-            float r = UnityEngine.Random.Range(0, 100);
-            if (r < _settings.plankChance)
-            {
-                resultList.Add(i);
-                Debug.Log(i);
-            }
-        }
-
-        return _ = resultList.ToArray();
-    }
-
-    public int[] GetSpecificCells(int planksNeeded) 
-    {
-        if (planksNeeded >= _blockData.length)
-        {
-            planksNeeded = _blockData.length - 1;
-            Debug.LogError(gameObject.name + ": Too many planks are demanded in template");
-        }
-        List<int> sourceIndexes = new List<int>(_blockData.length);
-
-        for (int i = 0; i < (_blockData.length - 1); i++)
-        {
-            sourceIndexes.Add(i);
-        }
-
-        int[] resultArray = new int[planksNeeded];
-        for (int i = 0; i < planksNeeded; i++)
-        {
-            System.Random random = new System.Random();
-            var index = random.Next(sourceIndexes.Count);
-            var randomItem = sourceIndexes[index];
-            resultArray[i] = randomItem;
-            sourceIndexes.RemoveAt(index);
-        }
-        return resultArray;
-    }
-
-    public void PlanksInstantiation(int[] plankPlacesArray)
-    {
-        for (int i = 0; i < plankPlacesArray.Length; i++)
-        {
-          Plank plank = _planksManager.GetPlank();                                                
-          plank.transform.SetParent(_onBlockObjectsParentTransform);
-          float zCoord = UnityEngine.Random.Range(-1.35f, 1.35f);
-          plank.transform.localPosition = new Vector3(-(0.5f + plankPlacesArray[i]), 0.5f, zCoord);
-          plank.gameObject.name = "Plank_" + i + "_on_" + gameObject.name;
-          plank.gameObject.SetActive(true);
-          IDisposable dis = _onHidingCommand.Subscribe(_ => plank.HidePlank());
-          plank.SetSubscription(dis);
-        }
+        IDisposable dis = _onHidingCommand.Subscribe(_ => plank.HidePlank());
+        plank.SetSubscription(dis);
     }
 
     public void GateInstantiation(BlockData blockData, int workingArea)
