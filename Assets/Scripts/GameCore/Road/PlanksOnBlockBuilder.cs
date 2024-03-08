@@ -43,7 +43,6 @@ public class PlanksOnBlockBuilder
             if (r < _settings.plankChance)
             {
                 resultList.Add(i);
-                Debug.Log(i);
             }
         }
 

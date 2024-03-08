@@ -15,7 +15,7 @@ public class BonusText : MonoBehaviour
 
     public void ShowFinishText()
     {
-        _bonusText.color = Color.white;
+        _bonusText.color = Color.red;
         _bonusText.text = "FINISH";
         _bonusText.gameObject.SetActive(true);
     }

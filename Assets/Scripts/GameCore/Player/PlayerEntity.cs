@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UniRx.Extensions;
 using Zenject;
 
 
