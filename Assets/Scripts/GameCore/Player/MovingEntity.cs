@@ -10,7 +10,7 @@ public class MovingEntity
     private Transform _playerEntity;
     private Settings _settings;
     private Vector3 _currentDirectionV3;
-    private int _speed;
+    private float _speed;
     public ReactiveProperty<float> xLocalPos = new ReactiveProperty<float>();
     private Action _onFallingAct;
 

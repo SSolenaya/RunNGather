@@ -25,7 +25,6 @@ public class PlanksManager
     {
         Plank plank = _plankPoolManager.GetPoolItem<Plank>();
         plank.SetBuilder(this);
-        plank.gameObject.SetActive(true);
         _planksList.Add(plank);
         return plank;
     }

@@ -5,20 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Settings", menuName = "ScriptableObjects/Settings", order = 0)]
 public class Settings : ScriptableObject
 {
-    public int roadStartDistance = 8;                       //             player's distance from current block for doing check of hiding 
-    public int playerSpeed = 5;
-    public int minBlockLenght = 8;
-    public int maxBlockLenght = 30;                                    
-    public int roadEndDistance = 15;                       //             player's distance from current block for building new blocks                                
-    public int startingBlockNumber = 10;                   //             block's amount that is built on start
-    public int planksPoints = 1;                   //             test temp bear - > remove or change planks to planks packs 
-    public int minDistanceBetweenGates = 8;
+    public int roadStartDistance;                       //             player's distance from current block for doing check of hiding 
+    public float playerSpeed;
+    public int minBlockLenght;
+    public int maxBlockLenght;                                    
+    public int roadEndDistance;                       //             player's distance from current block for building new blocks                                
+    public int startingBlockNumber;                   //             block's amount that is built on start
+    public int planksPoints;                          //             test temp bear - > remove or change planks to planks packs 
+    public int minDistanceBetweenGates;
 
     [Range(1, 100)]
     public int plankChance;
 
     
-    public List<BonusGateArgs> bonusGatesList = new();          //  replace with levelsTemplatesList
+    public List<BonusGateArgs> bonusGatesList = new();         
     public List<LevelData> levelTemplatesList = new();
 
     public CharacterType currentCharType;                           //  test bear temp

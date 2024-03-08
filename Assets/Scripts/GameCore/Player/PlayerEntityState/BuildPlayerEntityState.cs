@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
-using UniRx;
 
 public class BuildPlayerEntityState : BasePlayerEntityState
 {
@@ -42,7 +41,7 @@ public class BuildPlayerEntityState : BasePlayerEntityState
                 _currentPlankPlace = new Vector3(currentBlock.GetBlockEndXPos() - 0.5f, 0.95f, _playerEntity.transform.position.z);
             }
             BuildPlank(_currentPlankPlace);
-            _currentPlankPlace += Vector3.left * 0.48f;             //  bear magic number
+            _currentPlankPlace += Vector3.left * 0.46f;             //  bear magic number
             _playerEntity.CurrentRoadBlock = null;
             _playerEntity.SetPlayerState<RunPlayerEntityState>();
         }

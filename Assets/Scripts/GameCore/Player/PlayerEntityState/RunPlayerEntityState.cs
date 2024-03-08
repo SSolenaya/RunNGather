@@ -5,6 +5,7 @@ using UnityEngine;
 public class RunPlayerEntityState : BasePlayerEntityState
 {
     private MovingEntity _movingEntity;
+    private bool _isRayCastAllowed;
 
     public RunPlayerEntityState(PlayerEntity playerEntity, MovingEntity movingEntity) : base(playerEntity)
     {
@@ -14,6 +15,7 @@ public class RunPlayerEntityState : BasePlayerEntityState
     public override void OnEnterState()
     {
         _characterAnimator.ChangeAnimationState(AnimationState.Run);
+        _playerEntity.StartCoroutine(SendingRayDelay());
     }
 
     public override void OnUpdateState()
@@ -23,16 +25,22 @@ public class RunPlayerEntityState : BasePlayerEntityState
         _movingEntity.SetNewLocalPos();
     }
 
+    private IEnumerator SendingRayDelay()
+    {
+        _isRayCastAllowed = false;
+        yield return null;
+        _isRayCastAllowed = true;
+    }
+
     private void SendRay()
     {
+        if ( !_isRayCastAllowed ) return;
         Ray ray = new Ray(_playerEntity.transform.position + Vector3.up * 1f, Vector3.down);
-        Debug.DrawRay(ray.origin, ray.direction * 5, Color.green);
+        Debug.DrawRay(ray.origin, ray.direction * 15, Color.green);
         RaycastHit hit;
         if (!Physics.Raycast(ray, out hit, 20, _playerEntity.layerMask))
         {
             _playerEntity.SetPlayerState<BuildPlayerEntityState>();
-            
-
         }
         else
         {
