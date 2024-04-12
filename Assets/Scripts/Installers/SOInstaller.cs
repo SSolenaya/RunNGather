@@ -37,5 +37,10 @@ public class SOInstaller : ScriptableObjectInstaller
                 .AsSingle()
                 .NonLazy();
 
+        Container.Bind<MathManager>()
+                .FromComponentInNewPrefab(_prefabHolder._mathManagerPrefab)
+                .AsSingle()
+                .NonLazy();
+
     }
 }

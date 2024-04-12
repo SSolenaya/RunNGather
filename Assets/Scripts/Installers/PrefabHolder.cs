@@ -18,6 +18,7 @@ public class PrefabHolder : ScriptableObject
     public MainMenuWin mainMenuWinPrefab;
     public List <CharacterViewData> modelsList;
     public AudioController _audioControllerPrefab;
+    public MathManager _mathManagerPrefab;
 
     public CharacterAnimator GetModelPrefabByType(CharacterType type)
     {
