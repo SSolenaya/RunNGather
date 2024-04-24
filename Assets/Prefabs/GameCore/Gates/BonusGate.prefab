@@ -252,7 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5595275742235241301}
-  - component: {fileID: 815020604077429445}
+  - component: {fileID: 2194042732452968241}
   m_Layer: 0
   m_Name: BonusGate
   m_TagString: Untagged
@@ -277,7 +277,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &815020604077429445
+--- !u!114 &2194042732452968241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

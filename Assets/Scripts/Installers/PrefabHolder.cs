@@ -10,6 +10,7 @@ public class PrefabHolder : ScriptableObject
     public PlayerEntity playerPrefab;
     public Plank plankPrefab;
     public BonusGate bonusGatePrefab;
+    public MathGate mathGatePrefab;
     public BonusText bonusTextPrefab;
     public FinishLine finishLinePrefab;
     public GameFieldHelper gameFieldHelperPrefab;

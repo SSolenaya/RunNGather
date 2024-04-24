@@ -33,7 +33,7 @@ public class MainLogic
     [Inject] private AudioController _audioController;
     [Inject] private UICanvasRoot _rootCanvas;
     [Inject] private PlanksManager _planksManager;
-    [Inject] private MathManager mathManager;
+    
     private GameState _gameState;
 
 
@@ -45,7 +45,7 @@ public class MainLogic
         _roadController.Restart(); 
         _environmentObjectsController.Restart();
         _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText);
-        mathManager.CreateMathRoomModel(8);
+        
     }
 
     public void SetGameState(GameState newState)
@@ -90,13 +90,14 @@ public class MainLogic
         }
     }
 
-    public void SetGameMode(GameMode newMode)
+    private void SetGameMode(GameMode newMode)
     {
         if (GameMode == newMode)
         {
             return;
         }
         GameMode = newMode;
+        _settings.gameMode = newMode;
     }
 
     public void SetGameMode(int optionNumber)
@@ -135,6 +136,7 @@ public enum GameState
 public enum GameMode
 {
     eternalRunning,
-    templatedLevels
+    templatedLevels,
+    mathMode
     //randomLevels
 }

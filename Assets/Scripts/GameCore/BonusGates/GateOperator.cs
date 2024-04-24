@@ -14,12 +14,12 @@ public interface IPlankNumberChanger
 
 public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
 {
-    protected BonusGate _parentGate;
+    protected AbstractGate _parentGate;
     protected int _modifier;
     protected bool isInteractable = true;
     private Action _onBonusGateCross;
 
-    public void Setup(int modifierValue, BonusGate parentGate)
+    public void Setup(int modifierValue, AbstractGate parentGate)
     {
         _modifier = modifierValue;
         _parentGate = parentGate;
@@ -48,6 +48,14 @@ public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
 public class GateOperatorArgs
 {
     public BonusOperationTypes opType;
+    public int modifier;
+}
+
+[Serializable]
+public class MathGateOperatorArgs
+{
+    public BonusOperationTypes opType;
+    public int visibleValue;
     public int modifier;
 }
 

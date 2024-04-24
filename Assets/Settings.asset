@@ -19,6 +19,7 @@ MonoBehaviour:
   roadEndDistance: 15
   startingBlockNumber: 10
   planksPoints: 1
+  mathDistanceBetweenGates: 16
   minDistanceBetweenGates: 8
   plankChance: 75
   bonusGatesList:
@@ -253,3 +254,4 @@ MonoBehaviour:
       mandatoryPlanksNumber: 2
       nextAbyssLength: 1
   currentCharType: 2
+  gameMode: 2

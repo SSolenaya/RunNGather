@@ -20,7 +20,8 @@ MonoBehaviour:
   - {fileID: 2099906495730562736, guid: 09d2c23bbff7e344a89b4d4a90562205, type: 3}
   playerPrefab: {fileID: 2222915898794353521, guid: 4180c29a242e1d54183746011ab4de65, type: 3}
   plankPrefab: {fileID: 2632873513385221019, guid: 2918417d093d82945bb5585381ef5038, type: 3}
-  bonusGatePrefab: {fileID: 815020604077429445, guid: 2dc1292cab8168346950934998186aee, type: 3}
+  bonusGatePrefab: {fileID: 2194042732452968241, guid: 2dc1292cab8168346950934998186aee, type: 3}
+  mathGatePrefab: {fileID: 5502243492299752275, guid: 5b87c519759c20947bd4daba35c6ed45, type: 3}
   bonusTextPrefab: {fileID: 6241734671700822251, guid: 77a3402abf575b241ae2964ebca12028, type: 3}
   finishLinePrefab: {fileID: 8848197742120926078, guid: 1730eacaa79a2a54e8721cea78df6f33, type: 3}
   gameFieldHelperPrefab: {fileID: 1277135878113561998, guid: ccb146e411aac7540a13b5bede243c65, type: 3}

@@ -9,6 +9,8 @@ namespace MathRoom
         private readonly List<BaseExampleModel> _listNormalExampleModels = new List<BaseExampleModel>();
         private readonly List<BaseExampleModel> _listFakeExampleModels = new List<BaseExampleModel>();
 
+        public List<BaseExampleModel>  GetTasksList => _listNormalExampleModels;
+
         public MathRoomModel(List<ExampleTemplate> listExampleTemplate, int countExamples)
         {
             if (listExampleTemplate == null || listExampleTemplate.Count == 0)

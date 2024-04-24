@@ -28,6 +28,9 @@ public class RoadController : MonoBehaviour
             case GameMode.eternalRunning:
                 GenerateRoad(_settings.startingBlockNumber);
                 break;
+            case GameMode.mathMode:
+                GenerateRoadMathMode(_settings.startingBlockNumber);                //  temp test bear
+                break;
             case GameMode.templatedLevels:
                 BuildLevel();
                 break;
@@ -37,6 +40,17 @@ public class RoadController : MonoBehaviour
 
     private void GenerateRoad(int blockNumber)
     {
+        for (int i = 0; i <= blockNumber; i++)
+        {
+            GenerateOneBlock();
+        }
+        _playerController.SubscribeForPlayerPosition(CheckForRoadEnding);
+    }
+
+    private void GenerateRoadMathMode(int blockNumber)
+    {
+        
+
         for (int i = 0; i <= blockNumber; i++)
         {
             GenerateOneBlock();
@@ -60,7 +74,6 @@ public class RoadController : MonoBehaviour
 
     private void BuildLevel()
     {
-        
       LevelData levelData = _settings.levelTemplatesList[_mainLogic.LevelNumber];
       BuildRoadFromTemplate(levelData);
     }

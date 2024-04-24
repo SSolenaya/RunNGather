@@ -10,8 +10,9 @@ using Zenject;
         public BaseExampleModel CurrentExampleModel { get; private set; }
 
         private MathRoomModel _mathRoomModel;
+        public MathRoomModel MathRoomModel => _mathRoomModel;
 
-        public void CreateMathRoomModel(int countExamples)
+    public void CreateMathRoomModel(int countExamples)
         {
             var exampleTemplates = new List<ExampleTemplate>();
 
@@ -64,6 +65,8 @@ using Zenject;
             return _mathRoomModel.GetFakeExampleModel();
         }
 
+
+
     [Button]
     public void ShowCurrentExample()
     {
@@ -79,9 +82,9 @@ using Zenject;
 
         do
         {
-           wrongAnswer = Random.Range(0, 21);
+            wrongAnswer = Random.Range(0, 21);
         } while (wrongAnswer == correctAnswer);
-        
+
     }
 
     [Button]

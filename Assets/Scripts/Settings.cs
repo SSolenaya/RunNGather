@@ -12,16 +12,20 @@ public class Settings : ScriptableObject
     public int roadEndDistance;                       //             player's distance from current block for building new blocks                                
     public int startingBlockNumber;                   //             block's amount that is built on start
     public int planksPoints;                          //             test temp bear - > remove or change planks to planks packs 
+    public int mathDistanceBetweenGates; 
     public int minDistanceBetweenGates;
 
     [Range(1, 100)]
     public int plankChance;
 
     
-    public List<BonusGateArgs> bonusGatesList = new();         
+    public List<BonusGateArgs> bonusGatesList = new();
     public List<LevelData> levelTemplatesList = new();
 
     public CharacterType currentCharType;                           //  test bear temp
+    public GameMode gameMode;                                       //  test bear temp
+
+    public static int planksMathModifier = 25;
 
 }
 

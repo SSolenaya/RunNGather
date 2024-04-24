@@ -10,7 +10,7 @@ public class GateBuilder
     private Settings _settings; 
     private BonusGatesController _bonusGatesController;
     private int _workingBlockArea;
-    private List<BonusGate> _bonusGateList;
+    private List<AbstractGate> _gateList;
 
     public GateBuilder(RoadBlock roadBlock, BlockData blockData, int blockScalableArea, Settings settings, BonusGatesController bonusGatesController) {
         _currentBlock = roadBlock;
@@ -18,14 +18,16 @@ public class GateBuilder
         _blockData = blockData;
         _settings = settings;
         _bonusGatesController = bonusGatesController;
-        _workingBlockArea = roadBlock.IsFinalBlock ? (blockScalableArea - _settings.minDistanceBetweenGates) : blockScalableArea;         // final block has the finish line, so it is necessary to keep its end free from any gates 
-        _bonusGateList = new List<BonusGate>();
+        int distance = _settings.gameMode == GameMode.mathMode ? _settings.mathDistanceBetweenGates : _settings.minDistanceBetweenGates;
+        _workingBlockArea = roadBlock.IsFinalBlock ? (blockScalableArea - distance) : blockScalableArea;         // final block has the finish line, so it is necessary to keep its end free from any gates 
+        _gateList = new List<AbstractGate>();
     }
 
     public void GateInstantiation()
     {
-        
-        int maxGatesQuantity = (_workingBlockArea / _settings.minDistanceBetweenGates) + 1;
+        bool math = _settings.gameMode == GameMode.mathMode;
+        int distance = math ? _settings.mathDistanceBetweenGates : _settings.minDistanceBetweenGates;
+        int maxGatesQuantity = (_workingBlockArea / distance) + 1;
         if (_blockData.gateArgs != null)        // when Settings has gate args in the current template of a block
         {
             if (_blockData.gateArgs.Count == 0) return;        // when this list is deliberately empty
@@ -43,7 +45,7 @@ public class GateBuilder
 
             for (int j = 0; j < gatesNumber; j++)
             {
-                _bonusGateList.Add(_bonusGatesController.GetNextTemplatedGate(_blockData.gateArgs[j]));
+                _gateList.Add(_bonusGatesController.GetNextTemplatedGate(_blockData.gateArgs[j]));
             }
 
         }
@@ -52,21 +54,29 @@ public class GateBuilder
             int r = UnityEngine.Random.Range(1, maxGatesQuantity + 1);
             for (int j = 0; j < r; j++)
             {
-                _bonusGateList.Add(_bonusGatesController.GetNextGate());
+                if (math)           //  temp test bear
+                {
+                    _gateList.Add(_bonusGatesController.GetNextMathGate());
+                }
+                else
+                {
+                    _gateList.Add(_bonusGatesController.GetNextGate());
+                }
+                
             }
         }
-        // created gates placing on the current block
-        float freeSpace = (maxGatesQuantity - _bonusGateList.Count) * _settings.minDistanceBetweenGates;
+        // placing created gates  on the current block
+        float freeSpace = (maxGatesQuantity - _gateList.Count) * distance;
         float allowedXPos = 2f;
-        for (int i = 0; i < _bonusGateList.Count; i++)
+        for (int i = 0; i < _gateList.Count; i++)
         {
             float delta = UnityEngine.Random.Range(1, 11) * freeSpace / 10;
             float localXCoord = allowedXPos + delta;
             freeSpace -= delta;
-            SingleGateInstantiation(_bonusGateList[i], localXCoord);
-            allowedXPos = localXCoord + _settings.minDistanceBetweenGates;
+            SingleGateInstantiation(_gateList[i], localXCoord);
+            allowedXPos = localXCoord + distance;
             int workingAreaBoarder = 2 + _workingBlockArea;
-            if (i < (_bonusGateList.Count - 1) && allowedXPos > workingAreaBoarder)
+            if (i < (_gateList.Count - 1) && allowedXPos > workingAreaBoarder)
             {
                 Debug.LogError("Next gate will cross the block boarder. " + "Gate xPos: " + allowedXPos + "block's working area boarder: " + workingAreaBoarder + "   " + _currentBlock.gameObject.name);
                 break;
@@ -74,21 +84,21 @@ public class GateBuilder
         }
     }
 
-    private void SingleGateInstantiation(BonusGate bonusGate, float gatesLocalXCoord)
+    private void SingleGateInstantiation(AbstractGate gate, float gatesLocalXCoord)
     {
-        bonusGate.transform.SetParent(_currentBlockPlankParent);
-        bonusGate.gameObject.transform.localPosition = Vector3.left * gatesLocalXCoord;
-        bonusGate.SetParentBlockName(_currentBlock.gameObject.name);
-        bonusGate.SetupGates();
-        bonusGate.gameObject.SetActive(true);
+        gate.transform.SetParent(_currentBlockPlankParent);
+        gate.gameObject.transform.localPosition = Vector3.left * gatesLocalXCoord;
+        gate.SetParentBlockName(_currentBlock.gameObject.name);
+        gate.SetupGates();
+        gate.gameObject.SetActive(true);
     }
 
     public void ReleaseGates()
     {
-        foreach (var gate in _bonusGateList)
+        foreach (var gate in _gateList)
         {
             _bonusGatesController.ReleaseGate(gate);
         }
-        _bonusGateList.Clear();
+        _gateList.Clear();
     }
 }

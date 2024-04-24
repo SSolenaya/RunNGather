@@ -13,6 +13,12 @@ public class BonusText : MonoBehaviour
         _bonusText.gameObject.SetActive(true);
     }
 
+    public void Setup(string text)
+    {
+        _bonusText.text = text;
+        _bonusText.gameObject.SetActive(true);
+    }
+
     public void ShowFinishText()
     {
         _bonusText.color = Color.red;
