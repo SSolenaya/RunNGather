@@ -42,7 +42,7 @@ public class GatesController
         set
         {
             _mathGateCounter = value;
-            if (_mathGateCounter >= _settings.startingBlockNumber - 1)
+            if (_mathGateCounter == _settings.startingBlockNumber)
             {
                 _mathGateCounter = 0;
                 mathManager.CreateMathRoomModel(_settings.startingBlockNumber);
