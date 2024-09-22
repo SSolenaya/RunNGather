@@ -25,7 +25,7 @@ public class Settings : ScriptableObject
     public CharacterType currentCharType;                           //  test bear temp
     public GameMode gameMode;                                       //  test bear temp
 
-    public static int planksMathModifier = 25;
+    public static int planksMathModifier = 100;
 
 }
 

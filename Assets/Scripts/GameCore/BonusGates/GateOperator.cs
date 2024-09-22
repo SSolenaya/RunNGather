@@ -23,7 +23,7 @@ public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
     {
         _modifier = modifierValue;
         _parentGate = parentGate;
-        _onBonusGateCross = parentGate.PlaySoundOnCrossingGate;
+        _onBonusGateCross = parentGate.OnGateCrossing;
     }
 
     public int GetModifier()                                    //  TODO: property
@@ -34,7 +34,6 @@ public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
     public virtual void ChangePlankNumber(PlanksCounter plankCounter) 
     {
         _onBonusGateCross?.Invoke();
-        _parentGate.SetInteracted();
     }
 
     public void SetUninteractable()

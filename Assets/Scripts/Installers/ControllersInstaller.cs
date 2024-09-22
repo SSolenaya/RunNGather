@@ -5,7 +5,7 @@ public class ControllersInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<BonusGatesController>().AsSingle().NonLazy();
+        Container.Bind<GatesController>().AsSingle().NonLazy();
 
         Container.Bind<PlanksManager>().AsSingle().NonLazy();
 

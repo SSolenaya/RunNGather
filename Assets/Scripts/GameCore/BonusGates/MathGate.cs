@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class MathGate : AbstractGate
 {
-    private BonusText _taskText;
-    private MathGateArgs _currentGatesSettings;
+    [SerializeField]  private MathGateArgs _currentGatesSettings;
 
     public override void SetGateSettings(AbstractGateArgs args)
     {
@@ -42,19 +41,17 @@ public class MathGate : AbstractGate
 
     private void SetupGateTask()
     {
-        _taskText = Instantiate(_prefabHolder.bonusTextPrefab, _gameFieldHelper.worldCanvas);
-        _taskText.transform.position = transform.position + 3*Vector3.up;
-        _taskText.gameObject.name = "Task_text_" + gameObject.name;
-        _taskText.Setup(_currentGatesSettings.gateTask);
+        _rootCanvas.gameUIController.ShowCurrentMathTask(_currentGatesSettings.gateTask);
+    }
+
+    public string GetCurrentTask()
+    {
+        return _currentGatesSettings.gateTask;
     }
 
     public override void Release()
     {
         base.Release();
-        if (_taskText != null)
-        {
-            Destroy(_taskText?.gameObject);
-        }
     }
 
 

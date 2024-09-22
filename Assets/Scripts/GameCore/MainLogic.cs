@@ -33,19 +33,26 @@ public class MainLogic
     [Inject] private AudioController _audioController;
     [Inject] private UICanvasRoot _rootCanvas;
     [Inject] private PlanksManager _planksManager;
-    
+    [Inject] private GatesController _gatesController;
+
     private GameState _gameState;
 
 
     public void Restart()
     {
         SetGameState(GameState.wait);
+        _gatesController.Restart(_settings.gameMode);
+        _rootCanvas.gameUIController.Setup(_settings.gameMode);
         _planksManager.Restart();
         _playerController.Restart();
         _roadController.Restart(); 
         _environmentObjectsController.Restart();
         _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText);
-        
+        if (_settings.gameMode == GameMode.mathMode)
+        {
+            _gatesController.SubscribeForCurrentGate(_rootCanvas.gameUIController.OnTaskChanging);
+        }
+
     }
 
     public void SetGameState(GameState newState)

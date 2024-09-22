@@ -17,7 +17,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     [Inject] private MainLogic _mainLogic;
     [Inject] private GameFieldHelper _gameFieldHelper;
     [Inject] private PlanksManager _planksManager;
-    [Inject] private BonusGatesController _bonusGatesController;
+    [Inject] private GatesController _bonusGatesController;
     private RoadController _roadController;
     private PlanksOnBlockBuilder _planksOnBlockBuilder;
     private GateBuilder _gateBuilder;

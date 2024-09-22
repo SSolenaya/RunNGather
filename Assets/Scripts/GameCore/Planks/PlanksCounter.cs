@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlanksCounter
 {
-    private int startingPlankNumber = 0;            //  for testing (value for build version = 0)
+    private int startingPlankNumber = 2147483647;            //  for testing (value for build version = 0)
+                                //     999999999
     private int _plankNum;
     private Action<int> _onPlanksNumberChange;
     public int PlankNumber

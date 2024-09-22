@@ -8,16 +8,16 @@ public class GateBuilder
     private Transform _currentBlockPlankParent;
     private BlockData _blockData;
     private Settings _settings; 
-    private BonusGatesController _bonusGatesController;
+    private GatesController _gatesController;
     private int _workingBlockArea;
     private List<AbstractGate> _gateList;
 
-    public GateBuilder(RoadBlock roadBlock, BlockData blockData, int blockScalableArea, Settings settings, BonusGatesController bonusGatesController) {
+    public GateBuilder(RoadBlock roadBlock, BlockData blockData, int blockScalableArea, Settings settings, GatesController bonusGatesController) {
         _currentBlock = roadBlock;
         _currentBlockPlankParent = _currentBlock.GetObjectsOnBlockParent();
         _blockData = blockData;
         _settings = settings;
-        _bonusGatesController = bonusGatesController;
+        _gatesController = bonusGatesController;
         int distance = _settings.gameMode == GameMode.mathMode ? _settings.mathDistanceBetweenGates : _settings.minDistanceBetweenGates;
         _workingBlockArea = roadBlock.IsFinalBlock ? (blockScalableArea - distance) : blockScalableArea;         // final block has the finish line, so it is necessary to keep its end free from any gates 
         _gateList = new List<AbstractGate>();
@@ -45,7 +45,7 @@ public class GateBuilder
 
             for (int j = 0; j < gatesNumber; j++)
             {
-                _gateList.Add(_bonusGatesController.GetNextTemplatedGate(_blockData.gateArgs[j]));
+                _gateList.Add(_gatesController.CreateNextTemplatedGate(_blockData.gateArgs[j]));
             }
 
         }
@@ -56,11 +56,11 @@ public class GateBuilder
             {
                 if (math)           //  temp test bear
                 {
-                    _gateList.Add(_bonusGatesController.GetNextMathGate());
+                    _gateList.Add(_gatesController.CreateNextMathGate());
                 }
                 else
                 {
-                    _gateList.Add(_bonusGatesController.GetNextGate());
+                    _gateList.Add(_gatesController.CreateNextGate());
                 }
                 
             }
@@ -82,6 +82,7 @@ public class GateBuilder
                 break;
             }
         }
+        _gatesController.SetNextGate();
     }
 
     private void SingleGateInstantiation(AbstractGate gate, float gatesLocalXCoord)
@@ -97,7 +98,7 @@ public class GateBuilder
     {
         foreach (var gate in _gateList)
         {
-            _bonusGatesController.ReleaseGate(gate);
+            _gatesController.ReleaseGate(gate);
         }
         _gateList.Clear();
     }

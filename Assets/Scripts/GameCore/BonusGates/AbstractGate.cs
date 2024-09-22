@@ -5,10 +5,13 @@ using Zenject;
 
 public abstract class AbstractGate : MonoBehaviour, IPoolItem
 {
+    private bool _isPassed;
+    public bool IsPassed => _isPassed;
     [Inject] protected GameFieldHelper _gameFieldHelper;
     [Inject] protected PrefabHolder _prefabHolder;
     [Inject] protected Settings _settings;
     [Inject] protected AudioController _audioController;
+    [Inject] protected UICanvasRoot _rootCanvas;
     [SerializeField] protected Transform _leftTextPos;
     [SerializeField] protected Transform _rightTextPos;
     [SerializeField] protected GameObject _leftGate;
@@ -18,6 +21,7 @@ public abstract class AbstractGate : MonoBehaviour, IPoolItem
     protected BonusText _leftBonusText;
     protected BonusText _rightBonusText;
     protected string _parentBlockName;
+    protected GatesController _gatesController;
     bool IPoolItem.IsInPool { get; set; }
 
     public GameObject GetGameObject()
@@ -25,26 +29,17 @@ public abstract class AbstractGate : MonoBehaviour, IPoolItem
         return gameObject;
     }
 
-    public virtual void Release()
-    {
-        if (_leftBonusText != null)
-        {
-            Destroy(_leftBonusText.gameObject);
-        }
-        if (_rightBonusText != null)
-        {
-            Destroy(_rightBonusText.gameObject);
-        }
-        Destroy(_leftBonus);
-        Destroy(_rightBonus);
-    }
-
     public void SetParentBlockName(string name)
     {
         _parentBlockName = name;
     }
 
-    public void SetInteracted()
+    public void SetGatesController(GatesController gatesController)
+    {
+        _gatesController = gatesController;
+    }
+
+    private void SetInteracted()
     {
         _leftBonus.SetUninteractable();
         _rightBonus.SetUninteractable();
@@ -53,14 +48,6 @@ public abstract class AbstractGate : MonoBehaviour, IPoolItem
     public void PlaySoundOnCrossingGate()
     {
         _audioController.PlayBonusPickingSound();
-    }
-
-    public abstract void SetGateSettings(AbstractGateArgs args);
-    
-    public virtual void SetupGates()
-    {
-        SetupLeftSemiGate();
-        SetupRightSemiGate();
     }
 
     protected GateOperator SetOperationToGate(GameObject go, BonusOperationTypes operationType)
@@ -80,6 +67,36 @@ public abstract class AbstractGate : MonoBehaviour, IPoolItem
         }
     }
 
+    public virtual void SetupGates()
+    {
+        SetupLeftSemiGate();
+        SetupRightSemiGate();
+    }
+
+    public void OnGateCrossing()
+    {
+        SetInteracted();
+        PlaySoundOnCrossingGate();
+        _isPassed = true;
+        _gatesController.SetNextGate();
+    }
+
+    public virtual void Release()
+    {
+        _isPassed = false;
+        if (_leftBonusText != null)
+        {
+            Destroy(_leftBonusText.gameObject);
+        }
+        if (_rightBonusText != null)
+        {
+            Destroy(_rightBonusText.gameObject);
+        }
+        Destroy(_leftBonus);
+        Destroy(_rightBonus);
+    }
+
+    public abstract void SetGateSettings(AbstractGateArgs args);
     protected abstract void SetupLeftSemiGate();
     protected abstract void SetupRightSemiGate();
 }
