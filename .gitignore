@@ -72,29 +72,4 @@ Assets/PlayMaker/Editor/Resources/EditorStartupPrefs.asset
 UserSettings/Search.settings
 UserSettings/AndroidLogcatSettings.asset
 ProjectSettings/GvhProjectSettings.xml
-
-<<<<<<< HEAD
-Assets/UI pack/
-=======
-.vs/
-Assets/UI pack/Prefabs/
-Assets/UI pack/Icons/Bolt colored.png
-Assets/UI pack/Fonts/Roboto-Regular.ttf.meta
-Assets/UI pack/Fonts/
-Assets/UI pack/Icons/
-Assets/UI pack/Scripts/
-Assets/UI pack/Documentation.txt
-Assets/UI pack/Documentation.txt.meta
->>>>>>> MathCheatMode
-<<<<<<< HEAD
-=======
-Assets/Art/Toon Environments - World Creator Pack Lite/Materials.meta
->>>>>>> master
-Assets/Scenes/TEWCPL_Scene.unity
-Assets/Scenes/TEWCPL_Scene.unity.meta
-<<<<<<< HEAD
-Assets/Art/Belevich/
-=======
-Assets/Art/External/Belevich/Hyper casual mobile GUI.meta
->>>>>>> master
-Assets/Art/External/
+.vs
