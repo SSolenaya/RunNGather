@@ -117,6 +117,5 @@ public class GatesController
     public void SetNextUnsolvedGate()
     {
         nextGate.Value = _gates.Where(x => x.IsPassed == false).First();
-        nextGate.Value.GetGateInfo();
     }
 }
