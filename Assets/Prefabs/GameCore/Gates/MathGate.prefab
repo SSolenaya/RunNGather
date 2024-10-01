@@ -140,7 +140,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c25122637987ea44fb4f8c5badc48672, type: 2}
+  - {fileID: 2100000, guid: be13b95bc19630642a9774537f0bc5f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -434,7 +434,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c25122637987ea44fb4f8c5badc48672, type: 2}
+  - {fileID: 2100000, guid: be13b95bc19630642a9774537f0bc5f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -680,6 +680,16 @@ MonoBehaviour:
   _rightTextPos: {fileID: 6538166176796252960}
   _leftGate: {fileID: 9027450737900218852}
   _rightGate: {fileID: 144405375161419371}
+  _currentGatesSettings:
+    gateTask: 
+    leftGateArgs:
+      opType: 0
+      visibleValue: 0
+      modifier: 0
+    rightGateArgs:
+      opType: 0
+      visibleValue: 0
+      modifier: 0
 --- !u!1 &9027450737900218852
 GameObject:
   m_ObjectHideFlags: 0

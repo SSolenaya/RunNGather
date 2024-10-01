@@ -40,13 +40,13 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: -6
-    - _DissolveVoronoi: 1.5
-    - _EmissionStrength: 2
+    - _DissolveVoronoi: 0.48
+    - _EmissionStrength: 0.9
     - _QueueControl: -1
     - _QueueOffset: 0
     - _Speed: 0.036
-    - _VoronoiCellsDensity: 40
-    - _colorPower: 0.22
+    - _VoronoiCellsDensity: 38.68
+    - _colorPower: 0.63
     m_Colors:
     - _Color1: {r: 0, g: 0.6490326, b: 1, a: 0}
     - _Color2: {r: 0.94728756, g: 0, b: 1, a: 0}

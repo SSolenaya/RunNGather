@@ -82,7 +82,7 @@ public class GateBuilder
                 break;
             }
         }
-        _gatesController.SetNextGate();
+        _gatesController.SetNextUnsolvedGate();
     }
 
     private void SingleGateInstantiation(AbstractGate gate, float gatesLocalXCoord)

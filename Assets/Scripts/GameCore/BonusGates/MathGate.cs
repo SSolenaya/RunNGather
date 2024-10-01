@@ -11,12 +11,6 @@ public class MathGate : AbstractGate
         _currentGatesSettings = (MathGateArgs)args;
     }
 
-    public override void SetupGates()
-    {
-        SetupGateTask();
-        base.SetupGates();
-    }
-
     protected override void SetupLeftSemiGate()
     {
          MathGateOperatorArgs args = _currentGatesSettings.leftGateArgs;
@@ -37,11 +31,6 @@ public class MathGate : AbstractGate
         _rightBonusText.transform.position = _rightTextPos.position;
         _rightBonusText.gameObject.name = "Right_text_" + gameObject.name;
         _rightBonusText.Setup(args.visibleValue.ToString());
-    }
-
-    private void SetupGateTask()
-    {
-        _rootCanvas.gameUIController.ShowCurrentMathTask(_currentGatesSettings.gateTask);
     }
 
     public string GetCurrentTask()

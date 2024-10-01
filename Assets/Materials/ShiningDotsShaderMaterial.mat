@@ -28,9 +28,10 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: -7
-    - _DotSize: 0.46
-    - _DotSpace: 0.67
+    - _DotSize: 4.16
+    - _DotSpace: 1
     m_Colors:
+    - _BaseColor: {r: 0, g: 0.46065897, b: 0.7578583, a: 0}
     - _DotColor: {r: 0, g: 0.8271549, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &232096955154998840

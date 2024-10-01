@@ -78,7 +78,7 @@ public abstract class AbstractGate : MonoBehaviour, IPoolItem
         SetInteracted();
         PlaySoundOnCrossingGate();
         _isPassed = true;
-        _gatesController.SetNextGate();
+        _gatesController.SetGateCrossed(this);
     }
 
     public virtual void Release()

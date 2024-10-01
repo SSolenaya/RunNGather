@@ -42,17 +42,16 @@ public class MainLogic
     {
         SetGameState(GameState.wait);
         _gatesController.Restart(_settings.gameMode);
+        if (_settings.gameMode == GameMode.mathMode)
+        {
+            _gatesController.SubscribeForCurrentGate(_rootCanvas.gameUIController.OnTaskChanging);
+        }
         _rootCanvas.gameUIController.Setup(_settings.gameMode);
         _planksManager.Restart();
         _playerController.Restart();
         _roadController.Restart(); 
         _environmentObjectsController.Restart();
         _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText);
-        if (_settings.gameMode == GameMode.mathMode)
-        {
-            _gatesController.SubscribeForCurrentGate(_rootCanvas.gameUIController.OnTaskChanging);
-        }
-
     }
 
     public void SetGameState(GameState newState)

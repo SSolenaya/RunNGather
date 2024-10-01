@@ -42,7 +42,7 @@ public class GatesController
         set
         {
             _mathGateCounter = value;
-            if (_mathGateCounter == _settings.startingBlockNumber)
+            if (_mathGateCounter == (_settings.startingBlockNumber - 1))
             {
                 _mathGateCounter = 0;
                 mathManager.CreateMathRoomModel(_settings.startingBlockNumber);
@@ -82,7 +82,6 @@ public class GatesController
     {
         var gate = _mathGatePoolManager.GetPoolItem<MathGate>();
         BaseExampleModel currentTask = mathManager.MathRoomModel.GetTasksList[MathGateCounter++];
-        Debug.LogError(currentTask.GetTask() + " counter " + MathGateCounter);
         MathGateArgs args = new MathGateArgs(currentTask.GetTask(), currentTask.GetAnswer());
         gate.SetGateSettings(args);
         gate.SetGatesController(this);
@@ -101,7 +100,13 @@ public class GatesController
 
     public void ReleaseGate(AbstractGate gate)
     {
+        _gates.Remove(gate);
         _bonusGatePoolManager.ReleaseItem(gate);
+    }
+
+    public void SetGateCrossed (AbstractGate gate)
+    {
+        SetNextUnsolvedGate();
     }
 
     public void SubscribeForCurrentGate(Action<AbstractGate> act)
@@ -109,8 +114,9 @@ public class GatesController
         nextGate.Subscribe(value => act?.Invoke(value));
     }
 
-    public void SetNextGate()
+    public void SetNextUnsolvedGate()
     {
         nextGate.Value = _gates.Where(x => x.IsPassed == false).First();
+        nextGate.Value.GetGateInfo();
     }
 }
