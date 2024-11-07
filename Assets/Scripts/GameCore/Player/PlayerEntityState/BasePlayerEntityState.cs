@@ -15,5 +15,5 @@ public abstract class BasePlayerEntityState
 
     public virtual void OnEnterState() { }
     public virtual void OnUpdateState() { }
-    //public virtual void OnExitState() { }
+    //public virtual void OnExitState() { }//TODOSALT
 }

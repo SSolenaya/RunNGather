@@ -19,11 +19,17 @@ public class RoadController : MonoBehaviour
     public void Restart()
     {
         if (_roadBlockPoolManager == null)
-        {
+        { //TODOSALT вынести в Init/Setup. от маинлогик могут пройти иниты контроллеров
             _roadBlockPoolManager = new PoolManager(_prefabHolder.roadBlockPrefab, _settings.startingBlockNumber * 2, _gameFieldHelper, _diContainer);
         }
         ClearExistingRoad();
-        switch (_mainLogic.GameMode)
+        GeneratingNewRoad();
+        
+    }
+
+    private void GeneratingNewRoad()
+    {
+        switch (_settings.gameMode)
         {
             case GameMode.eternalRunning:
             case GameMode.mathMode:

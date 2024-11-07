@@ -8,7 +8,7 @@ public class MenuController : MonoBehaviour
     [Inject] private UICanvasRoot _root;
     [Inject] private PrefabHolder _prefabHolder;
     [Inject] private MainLogic _mainLogic;
-    private MainMenuWin _currentMenuWin;
+    private StartingMenuWin _currentMenuWin;
 
     public void ShowMainMenu()
     {
@@ -19,7 +19,7 @@ public class MenuController : MonoBehaviour
             _currentMenuWin.transform.localScale = Vector3.one;
             _currentMenuWin.Setup(_mainLogic);
         }
-        _currentMenuWin.gameObject.SetActive(true);
+        _currentMenuWin.SetVisibility(true);
         
 
     }

@@ -28,6 +28,7 @@ public class GateBuilder
         bool math = _settings.gameMode == GameMode.mathMode;
         int distance = math ? _settings.mathDistanceBetweenGates : _settings.minDistanceBetweenGates;
         int maxGatesQuantity = (_workingBlockArea / distance) + 1;
+        //TODOSALT разнести на несколько методов
         if (_blockData.gateArgs != null)        // when Settings has gate args in the current template of a block
         {
             if (_blockData.gateArgs.Count == 0) return;        // when this list is deliberately empty
@@ -82,7 +83,7 @@ public class GateBuilder
                 break;
             }
         }
-        _gatesController.SetNextUnsolvedGate();
+        
     }
 
     private void SingleGateInstantiation(AbstractGate gate, float gatesLocalXCoord)

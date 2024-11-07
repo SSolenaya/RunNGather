@@ -16,7 +16,7 @@ public class PrefabHolder : ScriptableObject
     public GameFieldHelper gameFieldHelperPrefab;
     public UICanvasRoot uiCanvasRootPrefab;
     public List<BaseModalWindow> modalWindowList;
-    public MainMenuWin mainMenuWinPrefab;
+    public StartingMenuWin mainMenuWinPrefab;
     public List <CharacterViewData> modelsList;
     public AudioController _audioControllerPrefab;
     public MathManager _mathManagerPrefab;

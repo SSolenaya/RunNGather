@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PlanksCounter
 {
-    private int startingPlankNumber = 2147483647;            //  for testing (value for build version = 0)
-                                //     999999999
+    private int _startingPlankNumber = 0;            //  for testing (value for build version = 0)
     private int _plankNum;
     private Action<int> _onPlanksNumberChange;
     public int PlankNumber
@@ -20,7 +19,6 @@ public class PlanksCounter
             
         }
     }
-
     public PlanksCounter(Action<int> act)
     {
         _onPlanksNumberChange = act;
@@ -28,12 +26,11 @@ public class PlanksCounter
 
     public void Restart()
     {
-        PlankNumber = startingPlankNumber;
+        PlankNumber = _startingPlankNumber;
     }
 
     public void IncreasePlanksNumber()
     {
-        //_audioController.PlayGatheringSound();
         PlankNumber++;
     }
 

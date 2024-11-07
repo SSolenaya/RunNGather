@@ -36,8 +36,8 @@ public class BonusGate : AbstractGate
         _rightBonusText.Setup(_rightBonus);
     }
 
-    
 
+    //TODOSALT 
     //public GateOperator SetRandomGate(GameObject go)
     //{
     //    var random = new System.Random();
@@ -45,9 +45,9 @@ public class BonusGate : AbstractGate
     //    return SetOperationToGate(go, randomOpType);
     //}
 
-    
 
-    
+
+
 }
 
 

@@ -17,7 +17,7 @@ public class MultiplicationPlankOperator : GateOperator
         return "x";
     }
 }
-
+//TODOSALT 
 //public class MultiplicationOperatorArgs : GateOperatorArgs
 //{
 //

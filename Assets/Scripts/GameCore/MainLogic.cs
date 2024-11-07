@@ -8,21 +8,22 @@ using Zenject;
 public class MainLogic
 {
     public GameMode GameMode { get; private set; }
-    private int _levelNember = 0;//  only for Templated Levels Mode
-    public int LevelNumber 
+    private int _levelNumber = 0;//  only for Templated Levels Mode
+
+    public int LevelNumber
     {
-        get { return _levelNember; }
+        get => _levelNumber;
         private set
-            {
+        {
             if (value >= _settings.levelTemplatesList.Count)
             {
-                _levelNember = 0;
+                _levelNumber = 0;
             }
             else
             {
-                _levelNember = value;
+                _levelNumber = value;
             }
-            } 
+        }
     }
     [Inject] private Settings _settings;
     [Inject] private RoadController _roadController;
@@ -38,20 +39,23 @@ public class MainLogic
     private GameState _gameState;
 
 
+    public void Setup()
+    {
+        SetGameMode(GameMode.mathMode);
+    }
+
+    //TODOSALT добавить setup и newgame
     public void Restart()
     {
         SetGameState(GameState.wait);
+        _rootCanvas.gameUIController.Reset(_settings.gameMode);
         _gatesController.Restart(_settings.gameMode);
-        if (_settings.gameMode == GameMode.mathMode)
-        {
-            _gatesController.SubscribeForCurrentGate(_rootCanvas.gameUIController.OnTaskChanging);
-        }
-        _rootCanvas.gameUIController.Setup(_settings.gameMode);
         _planksManager.Restart();
         _playerController.Restart();
-        _roadController.Restart(); 
+        _roadController.Restart();                  //  _gatesController.SetNextUnsolvedGate(); after the ending of building full road
         _environmentObjectsController.Restart();
         _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText);
+        _gatesController.SetNextUnsolvedGate();
     }
 
     public void SetGameState(GameState newState)
@@ -63,6 +67,7 @@ public class MainLogic
         _gameState = newState;
         switch (newState)
         {
+            //TODOSALT чем отличаетс€ от none?
             case GameState.wait:
                 break;
             case GameState.win:
@@ -70,6 +75,8 @@ public class MainLogic
                 Debug.Log("Level finished !!!");
                 LevelNumber++;
                 _playerController.PlayerWins();
+
+                //TODOSALT не пон€тно что происходит. јргументы не нужны так как вс€ эта логика может быть в FinishLevelModalWin. FinishLevelModalWin не вызываетс€ с другими аргументымм
                 FinishLevelWinArgs finLvlArgs = new FinishLevelWinArgs();
                 finLvlArgs.backToMenuAct += _mainMenuController.ShowMainMenu;
                 finLvlArgs.nextLvlAct += Restart;
@@ -79,12 +86,13 @@ public class MainLogic
             case GameState.gameOver:
                 _audioController.PlayFallingSound();
                 Debug.Log("Game over !!!");
+                //TODOSALT јргументы не нужны так как вс€ эта логика может быть в GameOverModalWin. GameOverModalWin не вызываетс€ с другими аргументымм
                 GameOverWinArgs goArgs = new GameOverWinArgs();
                 goArgs.restartAct += Restart;
                 goArgs.restartAct += () => _playerController.MakePlayerRun();
                 goArgs.backToMenuAct += _mainMenuController.ShowMainMenu;
                 if (GameMode == GameMode.eternalRunning)
-                {
+                { //TODOSALT вот тут норм. и то окно может вз€ть на пр€мую из _playerController
                     goArgs.distance = _playerController.GetPlayerDistance();
                 }
                 _modalWindowsController.ShowModalWin<GameOverModalWin>(goArgs);
@@ -102,14 +110,16 @@ public class MainLogic
         {
             return;
         }
+
         GameMode = newMode;
         _settings.gameMode = newMode;
     }
 
     public void SetGameMode(int optionNumber)
     {
-        GameMode newGM = (GameMode)optionNumber;
-        SetGameMode(newGM);
+        //TODOSALT не сокращать переменные
+        GameMode newGameMode = (GameMode)optionNumber;
+        SetGameMode(newGameMode);
     }
 
     public GameState GetGameState()
@@ -121,16 +131,21 @@ public class MainLogic
     {
         _playerController.MakePlayerRun();
     }
-
+    //TODOSALT в контреллер звуков
     public void SubscribeForSoundMute(bool newSoundState)
     {
         _audioController.SwitchSound(newSoundState);
     }
 
+    public void SetCharacterOption(CharacterType newCharacterType)
+    {
+        _settings.currentCharType = newCharacterType;
+    }
+
 }
 
 
-
+//TODOSALT а где гейм стейт игра?
 public enum GameState
 {
     wait,

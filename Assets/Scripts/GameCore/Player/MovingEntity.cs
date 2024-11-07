@@ -26,7 +26,7 @@ public class MovingEntity
     {
         fallingTween?.Kill();
         _playerEntity.localPosition = new Vector3(-0.25f, 1f, 0);
-        xLocalPos.SetValueAndForceNotify(_playerEntity.localPosition.x);
+        xLocalPos.SetValueAndForceNotify(_playerEntity.localPosition.x);//TODOSALT где отписка
         _currentDirectionV3 = Vector3.left;
         _speed = _settings.playerSpeed;
     }

@@ -1,25 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
 
 public class GameUIController : MonoBehaviour
 {
-    [SerializeField] private GameObject distanceObj;
+    [SerializeField] private GameObject _distanceObj; //TODOSALT именовение полей
     [SerializeField] private GameObject _taskObj;
     [SerializeField] private TMP_Text _taskText;
     [SerializeField] private TMP_Text playersOvercomeDistanceTxt;
 
-    public void Setup (GameMode gameMode)
+    public void Reset(GameMode gameMode)
     {
-        distanceObj.SetActive(gameMode == GameMode.eternalRunning);
+        GameObjectsSetup(gameMode);
+        playersOvercomeDistanceTxt.text = "0";
+        _taskText.text = "";
+    }
+
+    private void GameObjectsSetup (GameMode gameMode)
+    {
+        _distanceObj.SetActive(gameMode == GameMode.eternalRunning);
         _taskObj.SetActive(gameMode == GameMode.mathMode);
     }
 
     public void ChangeDistanceText(float newPlayerPosX)
     {
-        playersOvercomeDistanceTxt.text = (-1*newPlayerPosX).ToString("0.0", new CultureInfo("en-US"));
+        playersOvercomeDistanceTxt.text = (-1 * newPlayerPosX).ToString("0.0", new CultureInfo("en-US"));
     }
 
     public void ShowCurrentMathTask(string currentTask)
@@ -27,20 +32,8 @@ public class GameUIController : MonoBehaviour
         _taskText.text = currentTask;
     }
 
-    public void OnTaskChanging(AbstractGate absGate)
+    public void OnTaskChanging(MathGate mathGate)
     {
-        MathGate mathGate = (MathGate)absGate;
-        if (mathGate != null)
-        {
-            ShowCurrentMathTask(mathGate.GetCurrentTask());
-        }
-    }
-
-
-    public void ReleaseUIElements(GameMode gameMode)
-    {
-        Setup(gameMode);
-        playersOvercomeDistanceTxt.text = "0";
-        _taskText.text = "";
+       ShowCurrentMathTask(mathGate.GetCurrentTask());
     }
 }

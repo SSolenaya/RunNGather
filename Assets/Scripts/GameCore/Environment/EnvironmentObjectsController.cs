@@ -100,9 +100,12 @@ public class EnvironmentObjectsController : MonoBehaviour
     {
         foreach (var item in _landscapeObjectsList)
         {
-            if (item.gameObject != null){ 
-            Destroy(item.gameObject); }
+            if (item.gameObject != null)
+            {
+                Destroy(item.gameObject);
+            }
         }
+
         _landscapeObjectsList.Clear();
         _landscapeObjectsIndexes.Clear();
     }

@@ -9,7 +9,7 @@ public class FinishLine : MonoBehaviour
     private Action _onSuccessfulFinish;
     private BonusText _finishText;
 
-
+    //TODOSALT можно без доп метода
     public void SubscribeForSuccessfulFinish(Action act)
     {
         _onSuccessfulFinish += act;

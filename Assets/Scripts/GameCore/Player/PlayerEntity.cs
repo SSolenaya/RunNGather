@@ -10,7 +10,7 @@ using Zenject;
 
 public class PlayerEntity : MonoBehaviour
 {
-    [Inject] private PrefabHolder _prefabHolder;
+    [Inject] private PrefabHolder _prefabHolder;//TODOSALT
     [Inject] private Settings _settings;
     [Inject] private CharacterModelsController _characterModelsController;
     [Inject] private AudioController _audioController;
@@ -20,17 +20,14 @@ public class PlayerEntity : MonoBehaviour
     public ReactiveProperty<float> xLocalPos => _movingEntity.xLocalPos;
     private RoadBlock _currentRoadBlock;
     public RoadBlock CurrentRoadBlock { get => _currentRoadBlock; set => _currentRoadBlock = value; }
-    public bool IsControlled { 
-        get { 
-            return _currentRoadBlock != null && _currentState is RunPlayerEntityState;
-            } 
-        }
+    public bool IsControlled => _currentRoadBlock != null && _currentState is RunPlayerEntityState;
 
     [SerializeField] private Transform _parentForView;
     [SerializeField] private TMP_Text _planksNumText;
     [SerializeField] private SwipeMovingController _swipeController;
     [SerializeField] private PlayerCollisionController _collisionController;
     private MovingEntity _movingEntity;
+    private CharacterType _currentType = CharacterType.none;
     private PlayerState _playerGameState = PlayerState.Idle;
     private CharacterAnimator _characterAnimator;
     private PlanksCounter _planksCounter;
@@ -41,24 +38,42 @@ public class PlayerEntity : MonoBehaviour
     {
         SetupMovingEntity();
         SetupPlanksCounter();
-        //Observable.EveryUpdate().Subscribe(_ => SetNewLocalPos()).AddTo(this);
+        //Observable.EveryUpdate().Subscribe(_ => SetNewLocalPos()).AddTo(this);//TODOSALT
         SetView();
-        InitialPlayerEntityStates();
+        SetEntityStates();
         _swipeController.Setup(this);
         _collisionController.Setup(_planksCounter);
-        SetPlayerState<IdlePlayerEntityState>();
+    }
+
+    public void Restart()
+    {
+        _movingEntity.Restart();
+        _planksCounter.Restart();
+        ResetView();
+    }
+
+    void Update()
+    {
+        if (_currentState != null)
+        {
+            _currentState.OnUpdateState();
+        }
     }
 
     private void SetupMovingEntity()
     {
        _movingEntity = new MovingEntity(this.transform, _settings);
-       _movingEntity.Restart();
+    }
+
+    private void SetEntityStates()
+    {
+        InitialPlayerEntityStates();
+        SetPlayerState<IdlePlayerEntityState>();
     }
 
     private void SetupPlanksCounter()
     {
         _planksCounter = new PlanksCounter(ChangePlanksCounterText);
-        _planksCounter.Restart();
     }
 
     private void ChangePlanksCounterText(int newPlanksNumber)
@@ -74,22 +89,24 @@ public class PlayerEntity : MonoBehaviour
         _entityStates.Add(typeof(FallPlayerEntityState), new FallPlayerEntityState(this, _movingEntity));
         _entityStates.Add(typeof(WinPlayerEntityState), new WinPlayerEntityState(this));
     }
-    
-    void Update()
-    {
-        if (_currentState != null)
-        {
-            _currentState.OnUpdateState();
-        }
-    }
 
     private void SetView()
     {
-        _characterAnimator = _characterModelsController.GetModelByType(_settings.currentCharType);           //  TODO: Get model by logic     bear
+        _currentType = _settings.currentCharType;
+        _characterAnimator = _characterModelsController.GetModelByType(_currentType);
         _characterAnimator.transform.SetParent(_parentForView);
         _characterAnimator.transform.localScale = Vector3.one;
         _characterAnimator.transform.localPosition = Vector3.zero;
         _characterAnimator.transform.localEulerAngles = new Vector3(0f, -90f, 0f);
+    }
+
+    private void ResetView()
+    {
+        if (_currentType == _settings.currentCharType) return;
+        Destroy(_characterAnimator.gameObject);
+        SetView();
+        _entityStates.Clear();
+        SetEntityStates();
     }
 
     public void SubscribeForFalling(Action act)
@@ -104,20 +121,13 @@ public class PlayerEntity : MonoBehaviour
         _currentState = _entityStates[typeof(T)];
         _currentState.OnEnterState();
     }
-    
-    public void Restart()
-    {
-        _movingEntity.Restart();
-        _planksCounter.Restart();
-        SetPlayerState<IdlePlayerEntityState>();
-    }
 
     public PlayerState GetGameState()
     {
         return _playerGameState;
     }
 
-   
+    //TODOSALT
     //public void IncreasePlanksNumber(int count)
     //{
     //    plankDataReactProperty.Value.plankNumber += count*_settings.planksPoints;

@@ -9,7 +9,7 @@ public class BonusText : MonoBehaviour
 
     public void Setup(GateOperator gateOperator)
     {
-        _bonusText.text = gateOperator.GetActionSymbol() + gateOperator.GetModifier();
+        _bonusText.text = gateOperator.GetActionSymbol() + gateOperator.Modifier;
         _bonusText.gameObject.SetActive(true);
     }
 

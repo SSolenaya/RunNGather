@@ -34,11 +34,12 @@ public class RunPlayerEntityState : BasePlayerEntityState
 
     private void SendRay()
     {
-        if ( !_isRayCastAllowed ) return;
-        Ray ray = new Ray(_playerEntity.transform.position + Vector3.up * 1f, Vector3.down);
-        Debug.DrawRay(ray.origin, ray.direction * 15, Color.green);
+        if (!_isRayCastAllowed) return;
+
+        Ray ray = new Ray(_playerEntity.transform.position + Vector3.up * 1f, Vector3.down);//TODOSALT магические числа или в настройки или в константы
+        Debug.DrawRay(ray.origin, ray.direction * 15, Color.green);//TODOSALT магические числа
         RaycastHit hit;
-        if (!Physics.Raycast(ray, out hit, 20, _playerEntity.layerMask))
+        if (!Physics.Raycast(ray, out hit, 20, _playerEntity.layerMask))//TODOSALT магические числа 
         {
             _playerEntity.SetPlayerState<BuildPlayerEntityState>();
         }
@@ -48,13 +49,12 @@ public class RunPlayerEntityState : BasePlayerEntityState
             {
                 return;
             }
+
             RoadBlock hitBlock = hit.collider.gameObject.GetComponentInParent<RoadBlock>();
             if (hitBlock != null)
             {
                 _playerEntity.CurrentRoadBlock = hitBlock;
-                
             }
-
         }
     }
 }

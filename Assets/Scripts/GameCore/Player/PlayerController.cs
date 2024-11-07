@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void PlayerInstantiation()
-    {
+    { //TODOSALT вынести в Init/Setup. от маинлогик могут пройти иниты контроллеров
         if (_playerEntity == null)
         {
             _playerEntity = _diContainer.InstantiatePrefab(_prefabHolder.playerPrefab).GetComponent<PlayerEntity>();

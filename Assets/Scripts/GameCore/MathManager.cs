@@ -12,7 +12,7 @@ using Zenject;
         private MathRoomModel _mathRoomModel;
         public MathRoomModel MathRoomModel => _mathRoomModel;
 
-    public void CreateMathRoomModel(int countExamples)
+        public void CreateMathRoomModel(int countExamples)
         {
             var exampleTemplates = new List<ExampleTemplate>();
 
@@ -65,7 +65,7 @@ using Zenject;
             return _mathRoomModel.GetFakeExampleModel();
         }
 
-
+        //TODOSALT добавить методы дай один пример по условиям
 
     [Button]
     public void ShowCurrentExample()

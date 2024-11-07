@@ -14,6 +14,7 @@ public interface IPlankNumberChanger
 
 public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
 {
+    public int Modifier { get => _modifier; private set { } }
     protected AbstractGate _parentGate;
     protected int _modifier;
     protected bool isInteractable = true;
@@ -24,11 +25,6 @@ public abstract class GateOperator : MonoBehaviour, IPlankNumberChanger
         _modifier = modifierValue;
         _parentGate = parentGate;
         _onBonusGateCross = parentGate.OnGateCrossing;
-    }
-
-    public int GetModifier()                                    //  TODO: property
-    {
-        return _modifier;
     }
 
     public virtual void ChangePlankNumber(PlanksCounter plankCounter) 

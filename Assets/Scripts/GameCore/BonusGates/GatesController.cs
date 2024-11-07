@@ -11,14 +11,18 @@ public class GatesController
 {
     [Inject] private PrefabHolder _prefabHolder;
     [Inject] private Settings _settings;
+    [Inject] private UICanvasRoot _rootCanvas;
     [Inject] private GameFieldHelper _gameFieldHelper;
-    [Inject] private MathManager mathManager;
+    [Inject] private MathManager _mathManager;//TODOSALT наименование полей
     [Inject] private DiContainer _diContainer;
+    private GameMode _gameMode;
+    private PoolManager _currentPoolManager;
     private PoolManager _bonusGatePoolManager;
     private PoolManager _mathGatePoolManager;
+    private GameUIController _gameUIController;
     private int _bonusGateCounter = 0;
     private List<AbstractGate> _gates = new List<AbstractGate>();
-    private ReactiveProperty<AbstractGate> nextGate = new ReactiveProperty<AbstractGate>();
+    private AbstractGate _nextGate;
 
 
     public int BonusGateCounter
@@ -34,7 +38,7 @@ public class GatesController
         }
     }
 
-    private int _mathGateCounter = 0;          //  temp test beaar
+    private int _mathGateCounter = 0;          //  temp test beaar//TODOSALT remove ??
 
     public int MathGateCounter
     {
@@ -45,7 +49,7 @@ public class GatesController
             if (_mathGateCounter == (_settings.startingBlockNumber - 1))
             {
                 _mathGateCounter = 0;
-                mathManager.CreateMathRoomModel(_settings.startingBlockNumber);
+                _mathManager.CreateMathRoomModel(_settings.startingBlockNumber);
             }
         }
     }
@@ -53,18 +57,42 @@ public class GatesController
     public void Restart(GameMode gameMode)
     {
         _gates.Clear();
-        if (_bonusGatePoolManager == null)
+        _gameMode = gameMode;
+        if (_gameUIController == null)
         {
-            _bonusGatePoolManager = new PoolManager(_prefabHolder.bonusGatePrefab, _settings.startingBlockNumber * 2, _gameFieldHelper, _diContainer);
+            _gameUIController = _rootCanvas.gameUIController;
         }
-        
-        if (gameMode == GameMode.mathMode)
-        {
+        //TODOSALT вынести в Init/Setup. от маинлогик могут пройти иниты контроллеров
+
+        RestartPoolManager();
+        InitMath();
+    }
+
+    private void RestartPoolManager()
+    {
+        if (_gameMode == GameMode.mathMode)
+        { 
             if (_mathGatePoolManager == null)
             {
                 _mathGatePoolManager = new PoolManager(_prefabHolder.mathGatePrefab, _settings.startingBlockNumber * 2, _gameFieldHelper, _diContainer);
             }
-            mathManager.CreateMathRoomModel(_settings.startingBlockNumber);
+            _currentPoolManager = _mathGatePoolManager;
+        }
+        else
+        {
+            if (_bonusGatePoolManager == null)
+            {
+                _bonusGatePoolManager = new PoolManager(_prefabHolder.bonusGatePrefab, _settings.startingBlockNumber * 2, _gameFieldHelper, _diContainer);
+            }
+            _currentPoolManager = _bonusGatePoolManager;
+        }
+    }
+
+    private void InitMath()
+    {
+        if (_gameMode == GameMode.mathMode)
+        { 
+            _mathManager.CreateMathRoomModel(_settings.startingBlockNumber);
         }
     }
 
@@ -78,10 +106,10 @@ public class GatesController
         return gate;
     }
 
-    public MathGate CreateNextMathGate()              //  temp test bear
+    public MathGate CreateNextMathGate()             //TODOSALT  //  temp test bear
     {
         var gate = _mathGatePoolManager.GetPoolItem<MathGate>();
-        BaseExampleModel currentTask = mathManager.MathRoomModel.GetTasksList[MathGateCounter++];
+        BaseExampleModel currentTask = _mathManager.MathRoomModel.GetTasksList[MathGateCounter++];//TODOSALT изменить на "дай пример" позвать Солёного. Смысл - убрать массив. 
         MathGateArgs args = new MathGateArgs(currentTask.GetTask(), currentTask.GetAnswer());
         gate.SetGateSettings(args);
         gate.SetGatesController(this);
@@ -101,21 +129,29 @@ public class GatesController
     public void ReleaseGate(AbstractGate gate)
     {
         _gates.Remove(gate);
-        _bonusGatePoolManager.ReleaseItem(gate);
+        _currentPoolManager.ReleaseItem(gate);
     }
 
-    public void SetGateCrossed (AbstractGate gate)
+    public void SetGateCrossed (AbstractGate gate)//TODOSALT AbstractGate gate не использует? убрать
     {
         SetNextUnsolvedGate();
     }
 
-    public void SubscribeForCurrentGate(Action<AbstractGate> act)
-    {
-        nextGate.Subscribe(value => act?.Invoke(value));
-    }
-
     public void SetNextUnsolvedGate()
     {
-        nextGate.Value = _gates.Where(x => x.IsPassed == false).First();
+        _nextGate = _gates.Where(x => x.IsPassed == false).First();
+        SetUnsolvedMathGate(_settings.gameMode == GameMode.mathMode, _nextGate);
+    }
+
+    private void SetUnsolvedMathGate(bool isMathMode, AbstractGate abstractGate)
+    {
+        if (!isMathMode) return;
+        MathGate nextMathGate = (MathGate)abstractGate;
+        if (nextMathGate == null)
+        {
+            Debug.LogError ("Can't convert gate to math gate");
+            return;
+        }
+        _gameUIController.OnTaskChanging(nextMathGate);
     }
 }

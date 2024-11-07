@@ -40,16 +40,16 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: -6
-    - _DissolveVoronoi: 0.48
-    - _EmissionStrength: 0.9
+    - _DissolveVoronoi: 0.61
+    - _EmissionStrength: 0.77
     - _QueueControl: -1
     - _QueueOffset: 0
-    - _Speed: 0.036
-    - _VoronoiCellsDensity: 38.68
-    - _colorPower: 0.63
+    - _Speed: 0.1
+    - _VoronoiCellsDensity: 15.59
+    - _colorPower: 0.3
     m_Colors:
     - _Color1: {r: 0, g: 0.6490326, b: 1, a: 0}
-    - _Color2: {r: 0.94728756, g: 0, b: 1, a: 0}
+    - _Color2: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0.8865156, b: 1, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

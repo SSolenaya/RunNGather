@@ -15,7 +15,7 @@ public class PlanksManager
     public void Restart()
     {
         if (_plankPoolManager == null)
-        {
+        { //TODOSALT вынести в Init/Setup. от маинлогик могут пройти иниты контроллеров
             _plankPoolManager = new PoolManager(_prefabHolder.plankPrefab, _settings.maxBlockLenght * _settings.startingBlockNumber, _gameFieldHelper, _diContainer);
         }
         ClearExistingPlanks();
