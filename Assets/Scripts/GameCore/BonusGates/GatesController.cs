@@ -15,6 +15,7 @@ public class GatesController
     [Inject] private GameFieldHelper _gameFieldHelper;
     [Inject] private MathManager _mathManager;//TODOSALT наименование полей
     [Inject] private DiContainer _diContainer;
+    [Inject] private MainLogic _mainLogic;
     private GameMode _gameMode;
     private PoolManager _currentPoolManager;
     private PoolManager _bonusGatePoolManager;
@@ -49,15 +50,15 @@ public class GatesController
             if (_mathGateCounter == (_settings.startingBlockNumber - 1))
             {
                 _mathGateCounter = 0;
-                _mathManager.CreateMathRoomModel(_settings.startingBlockNumber);
+                InitMath();
             }
         }
     }
 
-    public void Restart(GameMode gameMode)
+    public void Restart()
     {
         _gates.Clear();
-        _gameMode = gameMode;
+        _gameMode = _mainLogic.GameMode;
         if (_gameUIController == null)
         {
             _gameUIController = _rootCanvas.gameUIController;
@@ -65,6 +66,7 @@ public class GatesController
         //TODOSALT вынести в Init/Setup. от маинлогик могут пройти иниты контроллеров
 
         RestartPoolManager();
+        _mathManager.SetMathRoomRules(_mainLogic.RulesSettingsData);
         InitMath();
     }
 
@@ -91,7 +93,7 @@ public class GatesController
     private void InitMath()
     {
         if (_gameMode == GameMode.mathMode)
-        { 
+        {
             _mathManager.CreateMathRoomModel(_settings.startingBlockNumber);
         }
     }

@@ -16,11 +16,16 @@ public class StartingMenuWin : MonoBehaviour
     [SerializeField] private Button _nosedmanSkinBtn;            //  temp bear
     [SerializeField] private Toggle _soundToggle;
     [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private MathSettingsManager _mathSettingsManager;
     private MainLogic _mainLogic;
 
     public void Setup(MainLogic mainLogic)
     {
         _mainLogic = mainLogic;
+        if (_mainLogic.GameMode == GameMode.mathMode)
+        {
+            _mathSettingsManager.Setup();
+        }
         //SetupGameModeOptions();
         SetupStartingButton();
         SetupSoundOptions();
@@ -31,6 +36,12 @@ public class StartingMenuWin : MonoBehaviour
     {
         _startBtn.onClick.RemoveAllListeners();
         _startBtn.onClick.AddListener(() => {
+            if (_mainLogic.GameMode == GameMode.mathMode)
+            {
+                _mainLogic.SetMathSettings(_mathSettingsManager.RulesSettingsData);
+                _mathSettingsManager.CheckSettings(out bool isAbleToStart);
+                if (!isAbleToStart) return;
+            }
             _mainLogic.Restart();
             _mainLogic.StartRunning();
             SetVisibility(false);

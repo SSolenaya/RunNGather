@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MathRoom;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,9 @@ using Zenject;
 
 public class MainLogic
 {
-    public GameMode GameMode { get; private set; }
+    public GameMode GameMode { 
+        get {return GameMode.mathMode;}
+        private set { value = GameMode.mathMode;} }
     private int _levelNumber = 0;//  only for Templated Levels Mode
 
     public int LevelNumber
@@ -37,11 +40,17 @@ public class MainLogic
     [Inject] private GatesController _gatesController;
 
     private GameState _gameState;
-
+    private RulesSettingsData _rulesSettingsData;
+    public RulesSettingsData RulesSettingsData => _rulesSettingsData;
 
     public void Setup()
     {
         SetGameMode(GameMode.mathMode);
+    }
+
+    public void SetMathSettings(RulesSettingsData rulesSettingsData)
+    {
+        _rulesSettingsData = rulesSettingsData;
     }
 
     //TODOSALT добавить setup и newgame
@@ -49,7 +58,7 @@ public class MainLogic
     {
         SetGameState(GameState.wait);
         _rootCanvas.gameUIController.Reset(_settings.gameMode);
-        _gatesController.Restart(_settings.gameMode);
+        _gatesController.Restart();
         _planksManager.Restart();
         _playerController.Restart();
         _roadController.Restart();                  //  _gatesController.SetNextUnsolvedGate(); after the ending of building full road
