@@ -22,11 +22,8 @@ public class StartingMenuWin : MonoBehaviour
     public void Setup(MainLogic mainLogic)
     {
         _mainLogic = mainLogic;
-        if (_mainLogic.GameMode == GameMode.mathMode)
-        {
-            _mathSettingsManager.Setup();
-        }
-        //SetupGameModeOptions();
+        _mathSettingsManager.gameObject.SetActive(_mainLogic.GameMode == GameMode.mathMode);
+        //SetupGameModeOptions();   // bear -> only math mode now
         SetupStartingButton();
         SetupSoundOptions();
         SetupSkinChoise();

@@ -23,7 +23,7 @@ public class Settings : ScriptableObject
     public List<LevelData> levelTemplatesList = new();
 
     public CharacterType currentCharType;                           //  test bear temp
-    public GameMode gameMode;                                       //  test bear temp
+    public GameMode gameMode = GameMode.mathMode;                   //  bear -> only math mode now
 
     public static int planksMathModifier = 100;
 

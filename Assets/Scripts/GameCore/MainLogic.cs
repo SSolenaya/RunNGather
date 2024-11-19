@@ -8,9 +8,7 @@ using Zenject;
 
 public class MainLogic
 {
-    public GameMode GameMode { 
-        get {return GameMode.mathMode;}
-        private set { value = GameMode.mathMode;} }
+    
     private int _levelNumber = 0;//  only for Templated Levels Mode
 
     public int LevelNumber
@@ -38,6 +36,14 @@ public class MainLogic
     [Inject] private UICanvasRoot _rootCanvas;
     [Inject] private PlanksManager _planksManager;
     [Inject] private GatesController _gatesController;
+    public GameMode GameMode
+    {
+        get
+        {
+            return _settings.gameMode;                         //  bear -> only math mode now
+        }
+        private set { }
+    }
 
     private GameState _gameState;
     private RulesSettingsData _rulesSettingsData;
@@ -45,7 +51,7 @@ public class MainLogic
 
     public void Setup()
     {
-        SetGameMode(GameMode.mathMode);
+        
     }
 
     public void SetMathSettings(RulesSettingsData rulesSettingsData)
