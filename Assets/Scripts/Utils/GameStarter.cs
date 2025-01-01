@@ -16,8 +16,8 @@ public class GameStarter : MonoInstaller
 
     private void OnPostInstall()
     {
+        _mainLogic.Init();
         _menuController.ShowMainMenu();
-        _mainLogic.Setup();
         _sceneContext.PostInstall -= OnPostInstall;
     }
 }

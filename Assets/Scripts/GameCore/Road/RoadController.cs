@@ -68,7 +68,7 @@ public class RoadController : MonoBehaviour
 
     private void BuildLevel()
     {
-      LevelData levelData = _settings.levelTemplatesList[_mainLogic.LevelNumber];
+      LevelData levelData = _settings.levelTemplatesList[_mainLogic.LevelTemplateNumber];
       BuildRoadFromTemplate(levelData);
     }
 

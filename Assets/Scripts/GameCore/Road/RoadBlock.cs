@@ -72,7 +72,7 @@ public class RoadBlock : MonoBehaviour, IPoolItem
     public void FinishLineInstantiation()
     {
         _finishLine = Instantiate(_prefabHolder.finishLinePrefab);
-        _finishLine.SubscribeForSuccessfulFinish(()=> _mainLogic.SetGameState(GameState.win));
+        _finishLine.SubscribeForSuccessfulFinish(()=> _mainLogic.GameState = GameState.win);
         _finishLine.transform.SetParent(_onBlockObjectsParentTransform);
         _finishLine.gameObject.transform.localPosition = new Vector3(-(_blockData.length - 2), 0f,0);
         _finishLine.SetFinishText(_prefabHolder, _gameFieldHelper);

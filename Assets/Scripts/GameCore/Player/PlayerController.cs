@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
             _playerEntity = _diContainer.InstantiatePrefab(_prefabHolder.playerPrefab).GetComponent<PlayerEntity>();
             _playerEntity.transform.SetParent(_gameFieldHelper.gameObjParent);
             _playerEntity.Setup();
-            _playerEntity.SubscribeForFalling(() => _mainLogic.SetGameState(GameState.gameOver));
+            _playerEntity.SubscribeForFalling(() => _mainLogic.GameState = GameState.gameOver);
         }
         _playerEntity.Restart();
     }

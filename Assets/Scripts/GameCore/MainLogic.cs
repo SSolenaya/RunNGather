@@ -9,23 +9,7 @@ using Zenject;
 public class MainLogic
 {
     
-    private int _levelNumber = 0;//  only for Templated Levels Mode
-
-    public int LevelNumber
-    {
-        get => _levelNumber;
-        private set
-        {
-            if (value >= _settings.levelTemplatesList.Count)
-            {
-                _levelNumber = 0;
-            }
-            else
-            {
-                _levelNumber = value;
-            }
-        }
-    }
+    
     [Inject] private Settings _settings;
     [Inject] private RoadController _roadController;
     [Inject] private EnvironmentObjectsController _environmentObjectsController;
@@ -45,78 +29,55 @@ public class MainLogic
         private set { }
     }
 
-    private GameState _gameState;
+    private GameStateProvider _gameStateProvider;
+    public GameState GameState
+    {
+        get
+        {
+            return _gameStateProvider.GetGameState();
+        }
+        set
+        {
+            _gameStateProvider.SetGameState(value);
+        }
+    }
     private RulesSettingsData _rulesSettingsData;
     public RulesSettingsData RulesSettingsData => _rulesSettingsData;
-
-    public void Setup()
+    private LevelTemplateNumberProvider _levelTemplateNumberProvider;
+    public int LevelTemplateNumber
     {
-        
+        get
+        {
+            return _levelTemplateNumberProvider.LevelNumber;
+        }
+        set
+        {
+            _levelTemplateNumberProvider.LevelNumber = value;
+        }
     }
 
-    public void SetMathSettings(RulesSettingsData rulesSettingsData)
+    public void Init()
     {
-        _rulesSettingsData = rulesSettingsData;
+        _gameStateProvider = new GameStateProvider(this, _audioController, _playerController, _mainMenuController, _modalWindowsController);
+        _levelTemplateNumberProvider = new LevelTemplateNumberProvider(_settings);
     }
 
-    //TODOSALT добавить setup и newgame
     public void Restart()
     {
-        SetGameState(GameState.wait);
+        _gameStateProvider.SetGameState(GameState.wait);
         _rootCanvas.gameUIController.Reset(_settings.gameMode);
         _gatesController.Restart();
         _planksManager.Restart();
         _playerController.Restart();
-        _roadController.Restart();                  //  _gatesController.SetNextUnsolvedGate(); after the ending of building full road
+        _roadController.Restart();         
         _environmentObjectsController.Restart();
         _playerController.SubscribeForPlayerPosition(_rootCanvas.gameUIController.ChangeDistanceText);
         _gatesController.SetNextUnsolvedGate();
     }
 
-    public void SetGameState(GameState newState)
+    public void SetMathSettings(RulesSettingsData rulesSettingsData)
     {
-        if (_gameState == newState)
-        {
-            return;
-        }
-        _gameState = newState;
-        switch (newState)
-        {
-            //TODOSALT чем отличаетс€ от none?
-            case GameState.wait:
-                break;
-            case GameState.win:
-                _audioController.PlayWinningSound();
-                Debug.Log("Level finished !!!");
-                LevelNumber++;
-                _playerController.PlayerWins();
-
-                //TODOSALT не пон€тно что происходит. јргументы не нужны так как вс€ эта логика может быть в FinishLevelModalWin. FinishLevelModalWin не вызываетс€ с другими аргументымм
-                FinishLevelWinArgs finLvlArgs = new FinishLevelWinArgs();
-                finLvlArgs.backToMenuAct += _mainMenuController.ShowMainMenu;
-                finLvlArgs.nextLvlAct += Restart;
-                finLvlArgs.nextLvlAct += () => _playerController.MakePlayerRun();
-                _modalWindowsController.ShowModalWin<FinishLevelModalWin>(finLvlArgs);
-                break;
-            case GameState.gameOver:
-                _audioController.PlayFallingSound();
-                Debug.Log("Game over !!!");
-                //TODOSALT јргументы не нужны так как вс€ эта логика может быть в GameOverModalWin. GameOverModalWin не вызываетс€ с другими аргументымм
-                GameOverWinArgs goArgs = new GameOverWinArgs();
-                goArgs.restartAct += Restart;
-                goArgs.restartAct += () => _playerController.MakePlayerRun();
-                goArgs.backToMenuAct += _mainMenuController.ShowMainMenu;
-                if (GameMode == GameMode.eternalRunning)
-                { //TODOSALT вот тут норм. и то окно может вз€ть на пр€мую из _playerController
-                    goArgs.distance = _playerController.GetPlayerDistance();
-                }
-                _modalWindowsController.ShowModalWin<GameOverModalWin>(goArgs);
-                break;
-            case GameState.none:
-            default:
-                Debug.LogError("Game state isn't defined");
-                break;
-        }
+        _rulesSettingsData = rulesSettingsData;
     }
 
     private void SetGameMode(GameMode newMode)
@@ -132,26 +93,15 @@ public class MainLogic
 
     public void SetGameMode(int optionNumber)
     {
-        //TODOSALT не сокращать переменные
         GameMode newGameMode = (GameMode)optionNumber;
         SetGameMode(newGameMode);
-    }
-
-    public GameState GetGameState()
-    {
-        return _gameState;
     }
 
     public void StartRunning()
     {
         _playerController.MakePlayerRun();
     }
-    //TODOSALT в контреллер звуков
-    public void SubscribeForSoundMute(bool newSoundState)
-    {
-        _audioController.SwitchSound(newSoundState);
-    }
-
+    
     public void SetCharacterOption(CharacterType newCharacterType)
     {
         _settings.currentCharType = newCharacterType;
@@ -160,7 +110,6 @@ public class MainLogic
 }
 
 
-//TODOSALT а где гейм стейт игра?
 public enum GameState
 {
     wait,

@@ -19,13 +19,13 @@ public class StartingMenuWin : MonoBehaviour
     [SerializeField] private MathSettingsManager _mathSettingsManager;
     private MainLogic _mainLogic;
 
-    public void Setup(MainLogic mainLogic)
+    public void Setup(MainLogic mainLogic, AudioController audioController)
     {
         _mainLogic = mainLogic;
         _mathSettingsManager.gameObject.SetActive(_mainLogic.GameMode == GameMode.mathMode);
         //SetupGameModeOptions();   // bear -> only math mode now
         SetupStartingButton();
-        SetupSoundOptions();
+        SetupSoundOptions(audioController);
         SetupSkinChoise();
     }
 
@@ -47,19 +47,20 @@ public class StartingMenuWin : MonoBehaviour
 
     private void SetupSkinChoise()
     {
-        _catcherSkinBtn.onClick.RemoveAllListeners();
         _catcherSkinBtn.onClick.AddListener(() => {
             _mainLogic.SetCharacterOption(CharacterType.catcher);
         });
-        _nosedmanSkinBtn.onClick.RemoveAllListeners();
         _nosedmanSkinBtn.onClick.AddListener(() => {
             _mainLogic.SetCharacterOption(CharacterType.nosedman);
         });
     }
 
-    private void SetupSoundOptions()
+    private void SetupSoundOptions(AudioController audioController)
     {
-        _soundToggle.OnValueChangedAsObservable().Subscribe(_ => _mainLogic.SubscribeForSoundMute(_));
+        _soundToggle.onValueChanged.AddListener((_) =>
+        {
+            audioController.SwitchSound(_);
+        });
     }
 
     public void SetVisibility (bool isVisible)
@@ -74,9 +75,21 @@ public class StartingMenuWin : MonoBehaviour
         _gameModeOptionsDropdown.ClearOptions();
         _gameModeOptionsDropdown.AddOptions(options);
         _gameModeOptionsDropdown.value = 0;
-        _gameModeOptionsDropdown.onValueChanged.RemoveAllListeners();
         _gameModeOptionsDropdown.onValueChanged.AddListener((_) => {
             _mainLogic.SetGameMode(_);
         });
+    }
+
+    private void RemovingListeners()
+    {
+        _catcherSkinBtn.onClick.RemoveAllListeners();
+        _nosedmanSkinBtn.onClick.RemoveAllListeners();
+        _soundToggle.onValueChanged.RemoveAllListeners();
+        _gameModeOptionsDropdown.onValueChanged.RemoveAllListeners();
+    }
+
+    private void OnDestroy()
+    {
+        RemovingListeners();
     }
 }
